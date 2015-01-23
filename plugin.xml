@@ -19,7 +19,7 @@
         <source-file src="src/ios/Mave.h" />        
         <source-file src="src/ios/Mave.m" />
         
-        <framework src="MessageUI.framework" weak="true" />        
+        <!-- <framework src="MessageUI.framework" weak="true" />         -->
     </platform>
 
 </plugin>

@@ -1,0 +1,3 @@
+[submodule "src/ios/mave-ios-sdk"]
+	path = src/ios/mave-ios-sdk
+	url = git@github.com:mave/mave-ios-sdk.git
