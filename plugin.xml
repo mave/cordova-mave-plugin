@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="io.mave.plugins.mave" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>mave</name>
+    <description>A plugin for the Mave Growth SDK</description>
+    <!-- <license>Apache 2.0</license> -->
+    <!-- <keywords>cordova,plugins,sms</keywords>     -->
+
+    <js-module name="mave" src="www/mave.js">
+        <clobbers target="window.mave" />
+    </js-module>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="Mave">
+                <param name="ios-package" value="Mave" />
+            </feature>
+        </config-file>
+        
+        <source-file src="src/ios/Mave.h" />        
+        <source-file src="src/ios/Mave.m" />
+        
+        <framework src="MessageUI.framework" weak="true" />        
+    </platform>
+
+</plugin>
