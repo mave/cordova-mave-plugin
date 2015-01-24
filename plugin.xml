@@ -12,7 +12,7 @@
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="Mave">
-                <param name="ios-package" value="Mave" />
+                <param name="ios-package" value="Mave" onload="true"/>
             </feature>
         </config-file>
         
