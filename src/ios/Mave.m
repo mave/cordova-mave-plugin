@@ -1,5 +1,7 @@
 #import "Mave.h"
-#import "./mave-ios-sdk/MaveSDK/MaveSDK.h"
+#import "MaveSDK.h"
+
+@implementation Mave
 
 - (void)init:(CDVInvokedUrlCommand*)command {
     NSMutableDictionary *retParams = [[NSMutableDictionary alloc] init];
@@ -9,3 +11,5 @@
         [MaveSDK setupSharedInstanceWithApplicationID:applicationId];
     }
 }
+
+@end
