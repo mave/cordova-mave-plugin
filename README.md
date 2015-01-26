@@ -45,6 +45,18 @@ When you get a new signup, first identify the user then call
 mave.trackSignup();
 ```
 
+## Getting the referring user
+When you get a new app launch, you can get get the data on the user who sent the referral. Just pass in a callback that accepts a userData object. If no referring user is found, an empty object is passed to the callback.
+```javascript
+mave.getReferringUser(function (userData) {
+  console.log('User ID: ' + userData.userID);
+  console.log('User first name: ' + userData.firstName);
+  console.log('User last name: ' + userData.lastName);
+  console.log('User email: ' + userData.email);
+  console.log('User phone: ' + userData.phone);
+});
+```
+
 ## Configuration
 See http://mave.io/betadocs/customize/ for more details on what can be customized.
 To customize the invite page through this plugin, all you need to do is call `setDisplayOptions` on an object containing the configuration variables you would like to overwrite. This should be called before the invite page is presented.
