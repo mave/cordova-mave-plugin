@@ -6,6 +6,7 @@
 
 @property(strong) NSString* callbackID;
 - (void)setupSharedInstanceWithApplicationID:(CDVInvokedUrlCommand*)command;
+- (void)getReferringUser:(CDVInvokedUrlCommand*)command;
 - (void)identifyUser:(CDVInvokedUrlCommand*)command;
 - (void)identifyAnonymousUser:(CDVInvokedUrlCommand*)command;
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command;

@@ -61,6 +61,21 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)getReferringUser:(CDVInvokedUrlCommand*)command {
+    NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
+    [[MaveSDK sharedInstance] getReferringUser:^(MAVEUserData *referringUser) {
+      if (referringUser) {
+        [returnInfo setObject:referringUser.userID forKey:@"userID"];
+        [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
+        [returnInfo setObject:referringUser.lastName forKey:@"lastName"];
+        [returnInfo setObject:referringUser.email forKey:@"email"];
+        [returnInfo setObject:referringUser.phone forKey:@"phone"];
+      }
+      CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
 /* Configuration */
 
 - (UIColor*)UIColorFromHexString:(NSString*)hexString {

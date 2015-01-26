@@ -25,6 +25,13 @@ maveExport.identifyUser = function (userData) {
   cordova.exec(successCallback, errorCallback, "Mave", "identifyUser", [userId, firstName, lastName, email, phone]);
 };
 
+maveExport.getReferringUser = function (successCallback) {
+  var errorCallback = function ( data ) {
+      console.log('getReferringUser error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "getReferringUser", []);
+};
+
 maveExport.identifyAnonymousUser = function () {
   var successCallback = function () {
       console.log('identifyAnonymousUser success');
