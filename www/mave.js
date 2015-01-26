@@ -17,12 +17,12 @@ maveExport.identifyUser = function (userData) {
   var errorCallback = function () {
       console.log('identifyUser error');
   };
-  var userId = userData.userId;
+  var userID = userData.userID;
   var firstName = userData.firstName;
   var lastName = userData.lastName;
   var email = userData.email;
   var phone = userData.phone;
-  cordova.exec(successCallback, errorCallback, "Mave", "identifyUser", [userId, firstName, lastName, email, phone]);
+  cordova.exec(successCallback, errorCallback, "Mave", "identifyUser", [userID, firstName, lastName, email, phone]);
 };
 
 maveExport.getReferringUser = function (successCallback) {

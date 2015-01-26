@@ -17,15 +17,15 @@
 }
 
 - (void)identifyUser:(CDVInvokedUrlCommand*)command {
-    // Args are [userId, firstName, lastName, email, phone]
+    // Args are [userID, firstName, lastName, email, phone]
     CDVPluginResult* pluginResult = nil;
     NSArray *args = command.arguments;
-    NSString* userId = [args objectAtIndex:0];
+    NSString* userID = [args objectAtIndex:0];
     NSString* firstName = [args objectAtIndex:1];
     NSString* lastName = [args objectAtIndex:2];
     NSString* email = [args objectAtIndex:3];
     NSString* phone = [args objectAtIndex:4];
-    MAVEUserData *userData = [[MAVEUserData alloc] initWithUserID:userId
+    MAVEUserData *userData = [[MAVEUserData alloc] initWithUserID:userID
                                                          firstName:firstName
                                                           lastName:lastName
                                                              email:email

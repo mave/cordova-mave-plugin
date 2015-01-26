@@ -20,7 +20,7 @@ mave.setupSharedInstanceWithApplicationID(applicationId);
 There are two ways to identify a user. You can identify a logged in user:
 ```javascript
 var userData = {
-  userId: '123', // Only userId and firstName are required
+  userID: '123', // Only userID and firstName are required
   firstName: 'John',
   lastName: 'Doe',
   email: 'john@example.com',
