@@ -7,7 +7,7 @@
      A plugin for the Mave Growth SDK 
   </description>
   <!-- <license>Apache 2.0</license> -->
-  <!-- <keywords>cordova,plugins,sms</keywords>     -->
+  <keywords>cordova,plugins,mave</keywords>    
   <js-module name='mave' src='www/mave.js'>
     <clobbers target='window.mave'/>
   </js-module>
@@ -19,7 +19,6 @@
     </config-file>
     <source-file src='src/ios/Mave.h'/>
     <source-file src='src/ios/Mave.m'/>
-    <!-- <framework src="MessageUI.framework" weak="true" />         -->
     <framework src='Foundation.framework' autogen='true'/>
     <framework src='AddressBook.framework' autogen='true'/>
     <framework src='UIKit.framework' autogen='true'/>

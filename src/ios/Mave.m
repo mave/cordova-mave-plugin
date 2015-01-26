@@ -3,7 +3,7 @@
 
 @implementation Mave
 
-- (void)init:(CDVInvokedUrlCommand*)command {
+- (void)setupSharedInstanceWithApplicationID:(CDVInvokedUrlCommand*)command {
     CDVPluginResult* pluginResult = nil;
     NSArray *args = command.arguments;
     if ([args count]) {
@@ -35,6 +35,12 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)identifyAnonymousUser:(CDVInvokedUrlCommand*)command {
+    [[MaveSDK sharedInstance] identifyAnonymousUser];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command {
     MaveSDK *mave = [MaveSDK sharedInstance];
     [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
@@ -45,6 +51,12 @@
         [controller dismissViewControllerAnimated:YES completion:nil];
         // TODO: Return number of invites
     } inviteContext:@"default"];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)trackSignup:(CDVInvokedUrlCommand*)command {
+    [[MaveSDK sharedInstance] trackSignup];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

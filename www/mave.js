@@ -1,13 +1,13 @@
 var maveExport = {};
 
-maveExport.init = function (applicationId) {
+maveExport.setupSharedInstanceWithApplicationID = function (applicationId) {
   var successCallback = function () {
       console.log('init success');
   };
   var errorCallback = function () {
       console.log('init error');
   };
-  cordova.exec(successCallback, errorCallback, "Mave", "init", [applicationId]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setupSharedInstanceWithApplicationID", [applicationId]);
 };
 
 maveExport.identifyUser = function (userData) {
@@ -25,6 +25,16 @@ maveExport.identifyUser = function (userData) {
   cordova.exec(successCallback, errorCallback, "Mave", "identifyUser", [userId, firstName, lastName, email, phone]);
 };
 
+maveExport.identifyAnonymousUser = function () {
+  var successCallback = function () {
+      console.log('identifyAnonymousUser success');
+  };
+  var errorCallback = function () {
+      console.log('identifyAnonymousUser error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "identifyAnonymousUser", []);
+};
+
 maveExport.presentInvitePageModally = function (userData) {
   var successCallback = function () {
       console.log('presentInvitePageModally success');
@@ -33,6 +43,16 @@ maveExport.presentInvitePageModally = function (userData) {
       console.log('presentInvitePageModally error');
   };
   cordova.exec(successCallback, errorCallback, "Mave", "presentInvitePageModallyWithBlock", []);
+};
+
+maveExport.trackSignup = function () {
+  var successCallback = function () {
+      console.log('trackSignup success');
+  };
+  var errorCallback = function () {
+      console.log('trackSignup error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "trackSignup", []);
 };
 
 module.exports = maveExport;
