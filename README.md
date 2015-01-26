@@ -7,7 +7,7 @@ This plugin is not yet available through the Cordova Plugin Registry, so it will
 Unzip the plugin into it's own directory and add the plugin using `cordova plugin add /path/to/plugin/`
 
 # Using the plugin
-Take a look at the (docs)[http://mave.io/betadocs/integrate] for details on how the SDK works. Below you'll find the javascript functions that correspond to the SDK methods in the docs.
+Take a look at the [docs](http://mave.io/betadocs/integrate) for details on how the SDK works. Below you'll find the javascript functions that correspond to the SDK methods in the docs.
 
 ## Setting up the SDK on launch
 When your app is launched, you should initialize the library like this:
