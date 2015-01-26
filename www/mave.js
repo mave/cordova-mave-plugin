@@ -55,4 +55,74 @@ maveExport.trackSignup = function () {
   cordova.exec(successCallback, errorCallback, "Mave", "trackSignup", []);
 };
 
+
+/* Configuration */
+maveExport.setBackButtonTitle = function (title) {
+  var successCallback = function () {
+      console.log('setBackButtonTitle success');
+  };
+  var errorCallback = function () {
+      console.log('setBackButtonTitle error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "setBackButtonTitle", [title]);
+};
+
+maveExport.setBackButtonTintColor = function (color) {
+  var successCallback = function () {
+      console.log('setBackButtonTintColor success');
+  };
+  var errorCallback = function () {
+      console.log('setBackButtonTintColor error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "setBackButtonTintColor", [color]);
+};
+
+maveExport.setDisplayOptions = function (displayOptions) {
+  displayOptions = displayOptions || {};
+  var successCallback = function () {
+      console.log('setDisplayOptions success');
+  };
+  var errorCallback = function () {
+      console.log('setDisplayOptions error');
+  };
+  cordova.exec(successCallback, errorCallback, "Mave", "setNavigationBarOptions", [
+    displayOptions.navigationBarTitleCopy,
+    displayOptions.navigationBarTitleTextColor,
+    displayOptions.navigationBarBackgroundColor,
+    displayOptions.navigationBarCancelButtonTitle,
+    displayOptions.navigationBarCancelButtonTintColor
+  ]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setInviteExplanationOptions", [
+    displayOptions.inviteExplanationTextColor,
+    displayOptions.inviteExplanationCellBackgroundColor
+  ]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setContactOptions", [
+    displayOptions.contactNameTextColor,
+    displayOptions.contactDetailsTextColor,
+    displayOptions.contactSeparatorColor,
+    displayOptions.contactCellBackgroundColor,
+    displayOptions.contactCheckmarkColor
+  ]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setContactSectionOptions", [
+    displayOptions.contactSectionHeaderTextColor,
+    displayOptions.contactSectionHeaderBackgroundColor,
+    displayOptions.contactSectionIndexColor,
+    displayOptions.contactSectionIndexBackgroundColor
+  ]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setMessageSectionOptions", [
+    displayOptions.messageFieldTextColor,
+    displayOptions.messageFieldBackgroundColor,
+    displayOptions.sendButtonCopy,
+    displayOptions.sendButtonTextColor,
+    displayOptions.bottomViewBorderColor,
+    displayOptions.bottomViewBackgroundColor
+  ]);
+  cordova.exec(successCallback, errorCallback, "Mave", "setSharePageOptions", [
+    displayOptions.sharePageBackgroundColor,
+    displayOptions.sharePageIconColor,
+    displayOptions.sharePageIconTextColor,
+    displayOptions.sharePageExplanationTextColor
+  ]);
+};
+
 module.exports = maveExport;
