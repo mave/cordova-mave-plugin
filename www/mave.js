@@ -42,10 +42,12 @@ maveExport.identifyAnonymousUser = function () {
   cordova.exec(successCallback, errorCallback, "Mave", "identifyAnonymousUser", []);
 };
 
-maveExport.presentInvitePageModally = function (userData) {
-  var successCallback = function () {
+maveExport.presentInvitePageModally = function (successCallback) {
+  if ( successCallback === undefined ) {
+    successCallback = function () {
       console.log('presentInvitePageModally success');
-  };
+    };
+  }
   var errorCallback = function () {
       console.log('presentInvitePageModally error');
   };

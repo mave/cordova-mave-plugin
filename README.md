@@ -38,6 +38,12 @@ Once the user is identified, you can display the invite page modal like this:
 ```javascript
 mave.presentInvitePageModally();
 ```
+You can pass in a callback to `presentInvitePageModally` to get number of invites sent after the modal is dismissed, like this:
+```javascript
+mave.presentInvitePageModally(function(data) {
+  console.log('Successfully sent ' + data.numberOfInvitesSent + ' invites!');
+});
+```
 
 ## Tracking signups
 When you get a new signup, first identify the user then call

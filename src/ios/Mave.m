@@ -18,7 +18,6 @@
 
 - (void)identifyUser:(CDVInvokedUrlCommand*)command {
     // Args are [userID, firstName, lastName, email, phone]
-    CDVPluginResult* pluginResult = nil;
     NSArray *args = command.arguments;
     NSString* userID = [args objectAtIndex:0];
     NSString* firstName = [args objectAtIndex:1];
@@ -30,8 +29,8 @@
                                                           lastName:lastName
                                                              email:email
                                                              phone:phone];
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [[MaveSDK sharedInstance] identifyUser:userData];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -49,10 +48,11 @@
     } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
         // Code to transition back to your view controller after Mave's is dismissed
         [controller dismissViewControllerAnimated:YES completion:nil];
-        // TODO: Return number of invites
+        NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+        [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } inviteContext:@"default"];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)trackSignup:(CDVInvokedUrlCommand*)command {
