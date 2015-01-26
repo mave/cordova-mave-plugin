@@ -6,7 +6,7 @@
   <description>
      A plugin for the Mave Growth SDK 
   </description>
-  <!-- <license>Apache 2.0</license> -->
+  <license>See LICENSE file</license>
   <keywords>cordova,plugins,mave</keywords>    
   <js-module name='mave' src='www/mave.js'>
     <clobbers target='window.mave'/>
