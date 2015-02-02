@@ -26,11 +26,15 @@ var userData = {
   email: 'john@example.com',
   phone: '888-555-1234'
 };
-mave.identifyUser(userData);
+mave.identifyUser(userData,
+                  function () {console.log('identifyUser success!')}, // success callback (optional)
+                  function (e) {console.log('identifyUser error: ' + e)}); //error callback (optional)
 ```
 Or you can identify an anonymous user:
 ```javascript
-mave.identifyAnonymousUser();
+mave.identifyAnonymousUser(
+  function () {console.log('identifyAnonymousUser success!')}, // success callback (optional)
+  function (e) {console.log('identifyAnonymousUser error: ' + e)}); //error callback (optional)
 ```
 
 ## Displaying the invite page
@@ -48,7 +52,10 @@ mave.presentInvitePageModally(function(data) {
 ## Tracking signups
 When you get a new signup, first identify the user then call
 ```javascript
-mave.trackSignup();
+mave.trackSignup(
+  successCallback, // optional
+  errorCallback // optional
+);
 ```
 
 ## Getting the referring user
