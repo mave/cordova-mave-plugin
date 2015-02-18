@@ -7,10 +7,10 @@
      A plugin for the Mave Growth SDK 
   </description>
   <license>
-     See LICENSE file
+     See LICENSE file 
   </license>
   <keywords>
-     cordova,plugins,mave
+     cordova,plugins,mave 
   </keywords>
   <js-module name='mave' src='www/mave.js'>
     <clobbers target='window.mave'/>
