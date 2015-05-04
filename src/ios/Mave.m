@@ -4,75 +4,87 @@
 @implementation Mave
 
 - (void)setupSharedInstanceWithApplicationID:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* pluginResult = nil;
     NSArray *args = command.arguments;
     if ([args count]) {
-        NSString* applicationId = [args objectAtIndex:0];
-        [MaveSDK setupSharedInstanceWithApplicationID:applicationId];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate runInBackground:^{
+            NSString* applicationId = [args objectAtIndex:0];
+            [MaveSDK setupSharedInstanceWithApplicationID:applicationId];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
     } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No Application ID Passed in"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No Application ID Passed in"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)identifyUser:(CDVInvokedUrlCommand*)command {
     // Args are [userID, firstName, lastName, email, phone]
-    NSArray *args = command.arguments;
-    NSString* userID = [args objectAtIndex:0];
-    NSString* firstName = [args objectAtIndex:1];
-    NSString* lastName = [args objectAtIndex:2];
-    NSString* email = [args objectAtIndex:3];
-    NSString* phone = [args objectAtIndex:4];
-    MAVEUserData *userData = [[MAVEUserData alloc] initWithUserID:userID
-                                                         firstName:firstName
-                                                          lastName:lastName
-                                                             email:email
-                                                             phone:phone];
-    [[MaveSDK sharedInstance] identifyUser:userData];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate runInBackground:^{
+        NSArray *args = command.arguments;
+        NSString* userID = [args objectAtIndex:0];
+        NSString* firstName = [args objectAtIndex:1];
+        NSString* lastName = [args objectAtIndex:2];
+        NSString* email = [args objectAtIndex:3];
+        NSString* phone = [args objectAtIndex:4];
+        MAVEUserData *userData = [[MAVEUserData alloc] initWithUserID:userID
+                                                             firstName:firstName
+                                                              lastName:lastName
+                                                                 email:email
+                                                                 phone:phone];
+        [[MaveSDK sharedInstance] identifyUser:userData];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 - (void)identifyAnonymousUser:(CDVInvokedUrlCommand*)command {
-    [[MaveSDK sharedInstance] identifyAnonymousUser];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate runInBackground:^{
+        [[MaveSDK sharedInstance] identifyAnonymousUser];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command {
     MaveSDK *mave = [MaveSDK sharedInstance];
-    [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
-        // Code to present Mave's view controller
-        [self.viewController presentViewController:inviteController animated:YES completion:nil];
-    } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
-        // Code to transition back to your view controller after Mave's is dismissed
-        [controller dismissViewControllerAnimated:YES completion:nil];
-        NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-        [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    } inviteContext:@"default"];
+    [self.commandDelegate runInBackground:^{
+        [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
+            // Code to present Mave's view controller
+            [self.viewController presentViewController:inviteController animated:YES completion:nil];
+        } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
+            // Code to transition back to your view controller after Mave's is dismissed
+            [controller dismissViewControllerAnimated:YES completion:nil];
+            NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+            [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        } inviteContext:@"default"];
+    }];
 }
 
 - (void)trackSignup:(CDVInvokedUrlCommand*)command {
-    [[MaveSDK sharedInstance] trackSignup];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate runInBackground:^{
+        [[MaveSDK sharedInstance] trackSignup];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 - (void)getReferringUser:(CDVInvokedUrlCommand*)command {
-    NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
-    [[MaveSDK sharedInstance] getReferringUser:^(MAVEUserData *referringUser) {
-      if (referringUser) {
-        [returnInfo setObject:referringUser.userID forKey:@"userID"];
-        [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
-        [returnInfo setObject:referringUser.lastName forKey:@"lastName"];
-        [returnInfo setObject:referringUser.email forKey:@"email"];
-        [returnInfo setObject:referringUser.phone forKey:@"phone"];
-      }
-      CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
+        [[MaveSDK sharedInstance] getReferringUser:^(MAVEUserData *referringUser) {
+          if (referringUser) {
+            [returnInfo setObject:referringUser.userID forKey:@"userID"];
+            [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
+            [returnInfo setObject:referringUser.lastName forKey:@"lastName"];
+            [returnInfo setObject:referringUser.email forKey:@"email"];
+            [returnInfo setObject:referringUser.phone forKey:@"phone"];
+          }
+          CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+          [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
     }];
 }
 
