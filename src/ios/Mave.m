@@ -48,19 +48,17 @@
 
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command {
     MaveSDK *mave = [MaveSDK sharedInstance];
-    [self.commandDelegate runInBackground:^{
-        [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
-            // Code to present Mave's view controller
-            [self.viewController presentViewController:inviteController animated:YES completion:nil];
-        } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
-            // Code to transition back to your view controller after Mave's is dismissed
-            [controller dismissViewControllerAnimated:YES completion:nil];
-            NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-            [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        } inviteContext:@"default"];
-    }];
+    [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
+        // Code to present Mave's view controller
+        [self.viewController presentViewController:inviteController animated:YES completion:nil];
+    } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
+        // Code to transition back to your view controller after Mave's is dismissed
+        [controller dismissViewControllerAnimated:YES completion:nil];
+        NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+        [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } inviteContext:@"default"];
 }
 
 - (void)trackSignup:(CDVInvokedUrlCommand*)command {
