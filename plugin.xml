@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?> 
-<plugin id='io.mave.plugins.mave' version='0.4.0.3' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
+<plugin id='io.mave.plugins.mave' version='0.6.2.0' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
   <name>
      mave 
   </name>
@@ -23,14 +23,21 @@
     </config-file>
     <source-file src='src/ios/Mave.h'/>
     <source-file src='src/ios/Mave.m'/>
+    <framework src='libz.dylib'/>
     <framework src='Foundation.framework' autogen='true'/>
     <framework src='AddressBook.framework' autogen='true'/>
     <framework src='UIKit.framework' autogen='true'/>
+    <framework src='Foundation.framework' autogen='true'/>
+    <framework src='CoreTelephony.framework' autogen='true'/>
+    <framework src='Foundation.framework' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABPermissionPromptHandler.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABTableViewController.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEContactsInvitePageV2ViewController.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVECustomSharePageViewController.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInvitePageChooser.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInvitePageViewController.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESharer.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEWrapperNavigationController.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEConstants.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEPromise.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEPromise_Internal.h' autogen='true'/>
@@ -40,8 +47,6 @@
     <header-file src='src/ios/mave-sdk/headers/MaveSDK.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MaveSDK_Internal.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABPerson.h' autogen='true'/>
-    <header-file src='src/ios/mave-sdk/headers/MAVEDisplayOptions.h' autogen='true'/>
-    <header-file src='src/ios/mave-sdk/headers/MAVEReferralData.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEUserData.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfiguration.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationClientEmail.h' autogen='true'/>
@@ -49,42 +54,70 @@
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationClipboardShare.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationContactsInvitePage.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationContactsPrePrompt.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationContactsSync.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationCustomSharePage.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationFacebookShare.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationInvitePageChoice.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationServerSMS.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVERemoteConfigurationTwitterShare.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEShareToken.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEReferringData.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInvites.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEABSyncManager.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEAPIInterface.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEHTTPStack.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABUtils.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEBuiltinUIElementUtils.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEClientPropertyUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVECompressionUtils.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEIDUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTree.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeDataDemo.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeDataEnumerator.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeHashUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeInnerNode.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeLeafNode.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeProtocols.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEMerkleTreeUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVERange64.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MaveNameParsingUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVETemplatingUtils.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEContactsInvitePageInlineSendButton.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEContactsInvitePageV2AboveTableView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEContactsInvitePageV2TableViewCell.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEContactsInvitePageV2TableWrapperView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABPersonCell.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVECustomSharePageView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEDisplayOptions.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInviteExplanationView.h' autogen='true'/>
-    <header-file src='src/ios/mave-sdk/headers/MAVEInviteMessageContainerView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInviteMessageView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEInvitePageBottomActionContainerView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEInvitePageBottomActionSendButtonOnlyView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInviteSendingProgressView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEInviteTableHeaderView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEInviteTableSectionHeaderView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVENoAddressBookPermissionView.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVESearchBar.h' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@1x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@3x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconEmail@1x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconEmail@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconEmail@3x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconFacebook@1x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconFacebook@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconFacebook@3x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconSMS@1x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconSMS@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconSMS@3x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconTwitter@1x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconTwitter@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconTwitter@3x.png' autogen='true'/>
-    <source-file framework='true' src='src/ios/mave-sdk/libmavesdk.a' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEShareButtonsView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESpinnerImageView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEWaitingDotsImageView.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBPhoneNumberDefines.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBPhoneNumber.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBNumberFormat.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBPhoneNumberDesc.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBPhoneMetaData.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBPhoneNumberUtil.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBMetadataHelper.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBAsYouTypeFormatter.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBMetadataCore.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBMetadataCoreTest.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBMetadataCoreMapper.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NBMetadataCoreTestMapper.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/NSArray+NBAdditions.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/CCTemplate.h' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/NBPhoneNumberMetadata.plist' autogen='true'/>
+    <source-file framework='true' src='src/ios/mave-sdk/libPods-MaveSDK.a' autogen='true'/>
+    <source-file framework='true' src='src/ios/mave-sdk/libPods-libPhoneNumber-iOS.a' autogen='true'/>
+    <source-file framework='true' src='src/ios/mave-sdk/libPods-CCTemplate.a' autogen='true'/>
   </platform>
 </plugin>
