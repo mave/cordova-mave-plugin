@@ -9,12 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "MAVERemoteObjectBuilder.h"
 
-@interface MAVERemoteConfigurationContactsInvitePage : NSObject<MAVEDictionaryInitializable>
+typedef NS_ENUM(NSInteger, MAVESMSInviteSendMethod) {
+    MAVESMSInviteSendMethodServerSide,
+    MAVESMSInviteSendMethodClientSideGroup
+};
 
+@interface MAVERemoteConfigurationContactsInvitePage : NSObject<MAVEDictionaryInitializable>
 
 @property (nonatomic) BOOL enabled;
 @property (nonatomic, copy) NSString *templateID;
-@property (nonatomic, copy) NSString *explanationCopy;
+@property (nonatomic, copy) NSString *explanationCopyTemplate;
+- (NSString *)explanationCopy;
+@property (nonatomic, assign) BOOL shareButtonsEnabled;
+@property (nonatomic, assign) BOOL suggestedInvitesEnabled;
+@property (nonatomic, assign) MAVESMSInviteSendMethod smsInviteSendMethod;
 
 + (NSDictionary *)defaultJSONData;
 

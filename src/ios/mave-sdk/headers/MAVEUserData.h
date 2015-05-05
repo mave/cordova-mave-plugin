@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAVEUserDataKeyUserID @"user_id"
+extern NSString * const MAVEUserDataKeyUserID;
 
 @interface MAVEUserData : NSObject
 
@@ -17,14 +17,33 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *promoCode;
 
 // Internal flag, for use with anonymous users
-@property (nonatomic) BOOL isSetAutomaticallyFromDevice;
+@property (nonatomic, assign) BOOL isSetAutomaticallyFromDevice;
 
-// Essentially a referral code for web & mobile web signup flows,
-// if this (optional) URL is set invite links sent by this user
-// redirect here instead of app store or a non-attributed signup page
+// Explicitly set the link that will be used in invites sent by this user.
+// Optional, without this being set invites will to the relevant app-store
+// or generic web signup page, depending on the platform the person who
+// clicks the link is on (e.g. click on ios -> ios app store).
 @property (strong, nonatomic) NSString *inviteLinkDestinationURL;
+// Whether Mave should wrap the invite link in a deep link, which adds
+// analytics and redirects to the appropriate place based on device.
+// Defaults to YES, but you can set to NO if using your own deep linking tool
+@property (nonatomic, assign) BOOL wrapInviteLink;
+
+// customData is a freeform dictionary that you can use to
+// pass through any data you want to retrieve once the invited user opens
+// your app from this invite link. It will be available as the `customData`
+// property on the MAVEReferringData object. It is sent over our API as JSON
+// data so the object you pass in here must be JSON serializable - i.e.
+// NSJSONSerializiation `isValidJSONObject:` returns true.
+@property (nonatomic, strong) NSDictionary *customData;
+
+
+- (instancetype)initWithUserID:(NSString *)userID
+                     firstName:(NSString *)firstName
+                      lastName:(NSString *)lastName;
 
 - (instancetype)initWithUserID:(NSString *)userID
                      firstName:(NSString *)firstName

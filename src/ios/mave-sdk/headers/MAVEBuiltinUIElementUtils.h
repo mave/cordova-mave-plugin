@@ -11,11 +11,18 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface MAVEBuiltinUIElementUtils : NSObject
+
+// Tries to return the "MaveSDK" bundle created on pod install, falls back to
+// mainBundle which is correct for DemoApp testing or apps that copy source code
+// without using cocoapods
++ (NSBundle *)bundleForMave;
 
 // Transparently get images just by name or from a bundle
 + (UIImage *)imageNamed:(NSString *)imageName fromBundle:(NSString *)bundleName;
+
+// Helper to resize an image
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 // Mask a white & transparent image (like an icon) with the given color
 + (UIImage *)tintWhitesInImage:(UIImage *)baseImage withColor:(UIColor *)tintColor;

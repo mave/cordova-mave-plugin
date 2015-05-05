@@ -13,6 +13,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MAVERemoteObjectBuilder.h"
+#import "MAVERemoteConfigurationInvitePageChoice.h"
+#import "MAVERemoteConfigurationContactsSync.h"
 #import "MAVERemoteConfigurationContactsPrePrompt.h"
 #import "MAVERemoteConfigurationContactsInvitePage.h"
 #import "MAVERemoteConfigurationCustomSharePage.h"
@@ -25,6 +27,8 @@
 
 @interface MAVERemoteConfiguration : NSObject<MAVEDictionaryInitializable>
 
+@property (nonatomic, strong) MAVERemoteConfigurationInvitePageChoice *invitePageChoice;
+@property (nonatomic, strong) MAVERemoteConfigurationContactsSync *contactsSync;
 @property (nonatomic, strong) MAVERemoteConfigurationContactsPrePrompt *contactsPrePrompt;
 @property (nonatomic, strong) MAVERemoteConfigurationContactsInvitePage *contactsInvitePage;
 @property (nonatomic, strong) MAVERemoteConfigurationCustomSharePage *customSharePage;
@@ -41,6 +45,5 @@
 
 + (MAVERemoteObjectBuilder *)remoteBuilder;
 + (NSDictionary *)defaultJSONData;
-
 
 @end
