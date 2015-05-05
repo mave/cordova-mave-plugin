@@ -115,19 +115,3 @@ The plugin can be built automatically from a local directory where the iOS Mave 
 4. Simply running `make` will build the SDK in the root directory of the Cordova plugin.
 5. `make clean` will clean out any leftover temp files from the build steps.
 6. Check in the newly changes in the root directory, and update the version in `plugin.xml`, if you are bumping the version
-
-`NOTE`: If you get an error like this during the build step:
-
-```
-fatal error: file '~/code/ios/cordova-mave-plugin/scripts/update-ios-cocoapod/Pods/Target Support Files/Pods/Pods-environment.h' has been modified since the
-      precompiled header
-      '/var/folders/_7/hdz1v_p53_q44sbdvfdgklwr0000gn/C/com.apple.DeveloperTools/6.1.1-6A2008a/Xcode/SharedPrecompiledHeaders/Pods-MaveSDK-prefix-bszenywygqyessdmrzznmjrxunoj/Pods-MaveSDK-prefix.pch.pch'
-      was built
-note: please rebuild precompiled header
-      '/var/folders/_7/hdz1v_p53_q44sbdvfdgklwr0000gn/C/com.apple.DeveloperTools/6.1.1-6A2008a/Xcode/SharedPrecompiledHeaders/Pods-MaveSDK-prefix-bszenywygqyessdmrzznmjrxunoj/Pods-MaveSDK-prefix.pch.pch'
-1 error generated.
-
-** BUILD FAILED **
-```
-
-You will have to clear out the precompiled headers, so in this example you would `rm -rf /var/folders/_7/hdz1v_p53_q44sbdvfdgklwr0000gn/C/com.apple.DeveloperTools/6.1.1-6A2008a/Xcode/SharedPrecompiledHeaders/Pods-MaveSDK-*`

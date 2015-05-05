@@ -34,6 +34,7 @@ build-sim: pod
 	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
 
 clean:
+	-rm -rf /var/folders/*/*/C/com.apple.DeveloperTools/*/Xcode/SharedPrecompiledHeaders/Pods-MaveSDK-*
 	-rm -rf Pods
 	-rm Podfile.lock
 	-rm build_target_name.txt
