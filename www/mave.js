@@ -35,14 +35,14 @@ maveExport.identifyUser = function (userData, successCallback, errorCallback) {
   }
 };
 
-maveExport.getReferringUser = function (successCallback, errorCallback) {
+maveExport.getReferringData = function (successCallback, errorCallback) {
   successCallback = successCallback || function () {
-      console.log('getReferringUser success');
+      console.log('getReferringData success');
   };
   errorCallback = errorCallback || function (errorMessage) {
-      console.log('getReferringUser error: ' + errorMessage);
+      console.log('getReferringData error: ' + errorMessage);
   };
-  cordova.exec(successCallback, errorCallback, "Mave", "getReferringUser", []);
+  cordova.exec(successCallback, errorCallback, "Mave", "getReferringData", []);
 };
 
 maveExport.identifyAnonymousUser = function (successCallback, errorCallback) {

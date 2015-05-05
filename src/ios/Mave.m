@@ -71,10 +71,13 @@
     }];
 }
 
-- (void)getReferringUser:(CDVInvokedUrlCommand*)command {
+- (void)getReferringData:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
         NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
-        [[MaveSDK sharedInstance] getReferringUser:^(MAVEUserData *referringUser) {
+        [[MaveSDK sharedInstance] getReferringData:^(MAVEReferringData *referringData) {
+          NSString *phone = referringData.currentUser.phone;
+          NSDictionary *customData = referringData.customData;
+          MAVEUserData *referringUser = referringData.referringUser;
           if (referringUser) {
             [returnInfo setObject:referringUser.userID forKey:@"userID"];
             [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
