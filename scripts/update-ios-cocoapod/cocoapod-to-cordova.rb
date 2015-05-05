@@ -30,12 +30,13 @@ class CocoapodToCordovaBuilder
   #
   # returns an instance of this class ready to be configured
   # raises an error if the xcode_project doesn't contain a target for the pod
-  def initialize(pod_name, xcode_project)
+  def initialize(pod_names, xcode_project)
     @config = {}
-    @pod_name = pod_name
-    @target = xcode_project.targets
-                           .find{|t| t.display_name == "Pods-#{@pod_name}"}
-    return raise "Could not find a build target in xcodeproj" unless target
+    @pod_names = pod_names
+    @targets = pod_names.map do |pod_name|
+      xcode_project.targets.find{|t| t.display_name == "Pods-#{pod_name}"}
+    end
+    return raise "Could not find a build target in xcodeproj" unless @targets
   end
 
   # Public: root_path - Set the root_path of the project. This is the same
@@ -107,50 +108,54 @@ class CocoapodToCordovaBuilder
   private
 
   def include_product(options={})
-    options[:sub_dir] ||= ''
-    original_product_name = File.basename(@target.product_reference.path)
-    new_product_name = options[:name] || original_product_name
-    original_product_path = File.join(dst_path, @target.product_reference.path)
-    copy_to_product_path = File.join(dst_path, options[:sub_dir], original_product_name)
-    new_product_path = File.join(dst_path, options[:sub_dir], new_product_name)
-    new_product_path_relative = File.join(destination, options[:sub_dir], new_product_name)
-    if copy_files?(options)
-      copy_phase = create_new_copy_files_build_phase(File.dirname(copy_to_product_path))
-      copy_phase.add_file_reference(@target.product_reference)
-    end
-    if write_xml?(options)
-        ios_xml_element.add_element(pod_element 'source-file',
-                                    {'framework' => 'true',
-                                     'src'       => new_product_path_relative})
-    end
-    if new_product_path != original_product_path
-      shell_phase = @target.new_shell_script_build_phase
-      shell_phase.show_env_vars_in_log = "0"
-      shell_phase.shell_script = "mv #{copy_to_product_path} #{new_product_path}"
-    end
-    File.open('product_path.txt', 'w') do |f|
-      f.puts new_product_path
+    @targets.each do |target|
+      options[:sub_dir] ||= ''
+      original_product_name = File.basename(target.product_reference.path)
+      new_product_name = original_product_name
+      original_product_path = File.join(dst_path, target.product_reference.path)
+      copy_to_product_path = File.join(dst_path, options[:sub_dir], original_product_name)
+      new_product_path = File.join(dst_path, options[:sub_dir], new_product_name)
+      new_product_path_relative = File.join(destination, options[:sub_dir], new_product_name)
+      if copy_files?(options)
+        copy_phase = create_new_copy_files_build_phase(target, File.dirname(copy_to_product_path))
+        copy_phase.add_file_reference(target.product_reference)
+      end
+      if write_xml?(options)
+          ios_xml_element.add_element(pod_element 'source-file',
+                                      {'framework' => 'true',
+                                       'src'       => new_product_path_relative})
+      end
+      if new_product_path != original_product_path
+        shell_phase = target.new_shell_script_build_phase
+        shell_phase.show_env_vars_in_log = "0"
+        shell_phase.shell_script = "mv #{copy_to_product_path} #{new_product_path}"
+      end
+      File.open('product_path.txt', 'a') do |f|
+        f.puts new_product_path
+      end
     end
   end
 
   def include_headers(options = {})
     options[:sub_dir] ||= 'headers'
     excluded_files = options[:exclude] || []
-    if copy_files?(options)
-      copy_phase = create_new_copy_files_build_phase(File.join(dst_path, options[:sub_dir]))
-    end
-    @target.headers_build_phase.files.each do |header|
-      header_name = File.basename(header.file_ref.path)
-      unless excluded_files.include?(header_name)
-        if write_xml?(options)
-          header_path = File.join(destination,
-                                  options[:sub_dir],
-                                  header_name)
-          ios_xml_element.add_element(pod_element('header-file',
-                                                  {'src' => header_path}))
-        end
-        if copy_files?(options)
-          copy_phase.add_file_reference(header.file_ref)
+    @targets.each do |target|
+      if copy_files?(options)
+        copy_phase = create_new_copy_files_build_phase(target, File.join(dst_path, options[:sub_dir]))
+      end
+      target.headers_build_phase.files.each do |header|
+        header_name = File.basename(header.file_ref.path)
+        unless excluded_files.include?(header_name)
+          if write_xml?(options)
+            header_path = File.join(destination,
+                                    options[:sub_dir],
+                                    header_name)
+            ios_xml_element.add_element(pod_element('header-file',
+                                                    {'src' => header_path}))
+          end
+          if copy_files?(options)
+            copy_phase.add_file_reference(header.file_ref)
+          end
         end
       end
     end
@@ -158,10 +163,12 @@ class CocoapodToCordovaBuilder
 
   def include_frameworks(options={})
     excluded_files = options[:exclude] || []
-    @target.frameworks_build_phase.files.each do |framework|
-      unless excluded_files.include?(framework.display_name)
-        ios_xml_element.add_element(pod_element 'framework',
-                                                {'src' => framework.display_name})
+    @targets.each do |target|
+      target.frameworks_build_phase.files.each do |framework|
+        unless excluded_files.include?(framework.display_name)
+          ios_xml_element.add_element(pod_element 'framework',
+                                                  {'src' => framework.display_name})
+        end
       end
     end
   end
@@ -172,31 +179,36 @@ class CocoapodToCordovaBuilder
     options[:sub_dir] ||= 'resources'
     options[:localization] ||= 'en'
     excluded_files = options[:exclude] || []
-    resource_files = target.project.pod_group(@pod_name)
-                                   .groups
-                                   .find{|g| g.display_name == "Resources"}
-                                   .files
-                                   .reject{|f| excluded_files.include?(f.display_name)}
-    if copy_files?(options)
-      copy_resources = create_new_copy_files_build_phase(File.join(dst_path, options[:sub_dir]))
-    end
-    resource_files.each do |resource|
-      if write_xml?(options)
-        res_path = File.join(destination, options[:sub_dir], resource.display_name)
-        if resource.display_name.end_with?('.lproj')
-          if resource.display_name == "#{options[:localization]}.lproj"
-            resource.real_path.each_child do |localization_file|
-              localization_path = File.join(res_path, File.basename(localization_file))
-              ios_xml_element.add_element(pod_element('resource-file',
-                                                     {'src' => localization_path}))
-            end
-          end
-        else
-          ios_xml_element.add_element(pod_element('resource-file', {'src' => res_path}))
-        end
+    @pod_names.each_with_index do |pod_name, index|
+      resource_group = @targets[index].project.pod_group(pod_name)
+                                     .groups
+                                     .find{|g| g.display_name == "Resources"}
+      resource_files = []
+      if resource_group
+        resource_files = resource_group.files
+                                       .reject{|f| excluded_files.include?(f.display_name)}
       end
       if copy_files?(options)
-        copy_resources.add_file_reference(resource)
+        copy_resources = create_new_copy_files_build_phase(@targets[index], File.join(dst_path, options[:sub_dir]))
+      end
+      resource_files.each do |resource|
+        if write_xml?(options)
+          res_path = File.join(destination, options[:sub_dir], resource.display_name)
+          if resource.display_name.end_with?('.lproj')
+            if resource.display_name == "#{options[:localization]}.lproj"
+              resource.real_path.each_child do |localization_file|
+                localization_path = File.join(res_path, File.basename(localization_file))
+                ios_xml_element.add_element(pod_element('resource-file',
+                                                       {'src' => localization_path}))
+              end
+            end
+          else
+            ios_xml_element.add_element(pod_element('resource-file', {'src' => res_path}))
+          end
+        end
+        if copy_files?(options)
+          copy_resources.add_file_reference(resource)
+        end
       end
     end
   end
@@ -222,7 +234,9 @@ class CocoapodToCordovaBuilder
 
   def write_build_target_file!
     File.open('build_target_name.txt', 'w') do |f|
-      f.puts @target.display_name
+      @targets.each do |target|
+        f.puts target.display_name
+      end
     end
   end
 
@@ -251,8 +265,8 @@ class CocoapodToCordovaBuilder
     options[:write_xml] != false
   end
 
-  def create_new_copy_files_build_phase(copy_to_path)
-    copy_phase = @target.new_copy_files_build_phase
+  def create_new_copy_files_build_phase(target, copy_to_path)
+    copy_phase = target.new_copy_files_build_phase
     copy_phase.dst_subfolder_spec = nil
     copy_phase.dst_path = copy_to_path
     copy_phase

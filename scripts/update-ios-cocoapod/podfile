@@ -1,11 +1,14 @@
 platform :ios, '7.0'
 pod 'MaveSDK', :path => '../../../mave-ios-sdk'
+pod 'libPhoneNumber-iOS', '~> 0.8.3'
+pod 'CCTemplate', '0.2.0'
+
 
 post_install do |installer|
   require './cocoapod-to-cordova'
 
   # POD_NAME must be the exact same string as specified above
-  build = CocoapodToCordovaBuilder.new('MaveSDK', installer.project)
+  build = CocoapodToCordovaBuilder.new(['MaveSDK', 'libPhoneNumber-iOS', 'CCTemplate'], installer.project)
 
   # The directory path where plugin.xml lives
   # build.root_path = '../../'
