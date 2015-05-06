@@ -1,10 +1,13 @@
 # cordova-mave-plugin
-Cordova plugin for the Mave iOS SDK
+Cordova/PhoneGap plugin for the Mave iOS SDK
 
 # Installation
-This plugin is not yet available through the Cordova Plugin Registry, so it will need to be unzipped and installed locally.
+This plugin is available through the [Cordova Plugin Registry](http://plugins.cordova.io/#/package/io.mave.plugins.mave).
+To Install the plugin, execute the following command in your app's project directory:
 
-Unzip the plugin into it's own directory and add the plugin using `cordova plugin add /path/to/plugin/`
+```bash
+cordova plugin add io.mave.plugins.mave
+```
 
 # Using the plugin
 Take a look at the [docs](http://mave.io/betadocs/integrate) for details on how the SDK works. Below you'll find the javascript functions that correspond to the SDK methods in the docs.

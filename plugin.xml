@@ -10,7 +10,7 @@
      See LICENSE file 
   </license>
   <keywords>
-     cordova,plugins,mave 
+     cordova,plugins,mave,growth,invite,invites,referral,deep links,tracking
   </keywords>
   <js-module name='mave' src='www/mave.js'>
     <clobbers target='window.mave'/>
