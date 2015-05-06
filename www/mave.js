@@ -119,7 +119,9 @@ maveExport.setDisplayOptions = function (displayOptions, successCallback, errorC
       ]);
     }, errorCallback, "Mave", "setInviteExplanationOptions", [
       displayOptions.inviteExplanationTextColor,
-      displayOptions.inviteExplanationCellBackgroundColor
+      displayOptions.inviteExplanationCellBackgroundColor,
+      displayOptions.inviteExplanationShareButtonsColor,
+      displayOptions.inviteExplanationShareButtonsBackgroundColor
     ]);
   }, errorCallback, "Mave", "setNavigationBarOptions", [
     displayOptions.navigationBarTitleCopy,

@@ -83,8 +83,12 @@ All options are optional and do not need to be specified if you want to use the 
       navigationBarBackgroundColor: '#WWWWWW',
       navigationBarCancelButtonTitle: 'Cancel',
       navigationBarCancelButtonTintColor: '#999999',
+
       inviteExplanationTextColor: '#990000',
       inviteExplanationCellBackgroundColor: '#009999',
+      inviteExplanationShareButtonsColor: '#999999',
+      inviteExplanationShareButtonsBackgroundColor: '#009999',
+
       contactNameTextColor: '#FFFC13',
       contactDetailsTextColor: '#990000',
       contactSeparatorColor: '#WWWWWW',
@@ -94,12 +98,16 @@ All options are optional and do not need to be specified if you want to use the 
       contactSectionHeaderBackgroundColor: "#FFFFFF",
       contactSectionIndexColor: "#000000",
       contactSectionIndexBackgroundColor: "#FFFFFF",
+
       messageFieldTextColor: "#FFFC14",
       messageFieldBackgroundColor: "#FFFFFF",
+
       sendButtonCopy: "Send",
       sendButtonTextColor: "#990000",
+
       bottomViewBorderColor: "#CCCCCC",
       bottomViewBackgroundColor: "#WWWWWW",
+
       sharePageBackgroundColor: "#990000",
       sharePageIconColor: "#000000",
       sharePageIconTextColor: "#FFFFFF",

@@ -126,12 +126,18 @@
 - (void)setInviteExplanationOptions:(CDVInvokedUrlCommand*)command {
     NSString* inviteExplanationTextColor = [command.arguments objectAtIndex:0];
     NSString* inviteExplanationCellBackgroundColor = [command.arguments objectAtIndex:1];
+    NSString* inviteExplanationShareButtonsColor = [command.arguments objectAtIndex:2];
+    NSString* inviteExplanationShareButtonsBackgroundColor = [command.arguments objectAtIndex:3];
 
     MaveSDK *mave = [MaveSDK sharedInstance];
     if ( ![inviteExplanationTextColor isEqual:[NSNull null]] )
         mave.displayOptions.inviteExplanationTextColor = [self UIColorFromHexString:inviteExplanationTextColor];
     if ( ![inviteExplanationCellBackgroundColor isEqual:[NSNull null]] )
         mave.displayOptions.inviteExplanationCellBackgroundColor = [self UIColorFromHexString:inviteExplanationCellBackgroundColor];
+    if ( ![inviteExplanationShareButtonsColor isEqual:[NSNull null]] )
+        mave.displayOptions.inviteExplanationShareButtonsColor = [self UIColorFromHexString:inviteExplanationShareButtonsColor];
+    if ( ![inviteExplanationShareButtonsBackgroundColor isEqual:[NSNull null]] )
+        mave.displayOptions.inviteExplanationShareButtonsBackgroundColor = [self UIBackgroundColorFromHexString:inviteExplanationShareButtonsBackgroundColor];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
