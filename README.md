@@ -58,15 +58,17 @@ mave.trackSignup(
 );
 ```
 
-## Getting the referring user
-When you get a new app launch, you can get get the data on the user who sent the referral. Just pass in a callback that accepts a userData object. If no referring user is found, an empty object is passed to the callback.
+## Getting the referring data
+When you get a new app launch, you can get get the data on the user who sent the referral, and who the current user is. Just pass in a callback that accepts a referringData object. If no referring data is found, an empty object is passed to the callback.
 ```javascript
-mave.getReferringUser(function (userData) {
-  console.log('User ID: ' + userData.userID);
-  console.log('User first name: ' + userData.firstName);
-  console.log('User last name: ' + userData.lastName);
-  console.log('User email: ' + userData.email);
-  console.log('User phone: ' + userData.phone);
+mave.getReferringData(function (referringData) {
+  console.log('Referring User ID: ' + referringData.referringUserID);
+  console.log('Referring User first name: ' + referringData.referringUserFirstName);
+  console.log('Referring User last name: ' + referringData.referringUserLastName);
+  console.log('Referring User email: ' + referringData.referringUserEmail);
+  console.log('Referring User phone: ' + referringData.referringUserPhone);
+  console.log('Current User phone: ' + referringData.currentUserPhone);
+  var customData = referringData.customData;
 });
 ```
 

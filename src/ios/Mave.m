@@ -73,15 +73,17 @@
     [self.commandDelegate runInBackground:^{
         NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
         [[MaveSDK sharedInstance] getReferringData:^(MAVEReferringData *referringData) {
-          NSString *phone = referringData.currentUser.phone;
-          NSDictionary *customData = referringData.customData;
-          MAVEUserData *referringUser = referringData.referringUser;
-          if (referringUser) {
-            [returnInfo setObject:referringUser.userID forKey:@"userID"];
-            [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
-            [returnInfo setObject:referringUser.lastName forKey:@"lastName"];
-            [returnInfo setObject:referringUser.email forKey:@"email"];
-            [returnInfo setObject:referringUser.phone forKey:@"phone"];
+          if (referringData) {
+            [returnInfo setObject:referringData.customData forKey:@"customData"];
+            [returnInfo setObject:referringData.currentUser.phone forKey:@"currentUserPhone"];
+            MAVEUserData *referringUser = referringData.referringUser;
+            if (referringUser) {
+              [returnInfo setObject:referringUser.userID forKey:@"referringUserID"];
+              [returnInfo setObject:referringUser.firstName forKey:@"referringUserFirstName"];
+              [returnInfo setObject:referringUser.lastName forKey:@"referringUserLastName"];
+              [returnInfo setObject:referringUser.email forKey:@"referringUserEmail"];
+              [returnInfo setObject:referringUser.phone forKey:@"referringUserPhone"];
+            }
           }
           CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
           [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
