@@ -79,48 +79,49 @@ All options are optional and do not need to be specified if you want to use the 
 ```javascript
     var displayOptions = {
       navigationBarTitleCopy: 'Invite Your Friends',
-      navigationBarTitleTextColor: '#CCCCCC', // If a color is specified, it must be in this hex value form
-      navigationBarBackgroundColor: '#WWWWWW',
+      navigationBarTitleTextColor: '#000000', // If a color is specified, it must be in this hex value form
+      navigationBarBackgroundColor: '#DDDDDD',
       navigationBarCancelButtonTitle: 'Cancel',
       navigationBarCancelButtonTintColor: '#999999',
 
-      inviteExplanationTextColor: '#990000',
+      inviteExplanationTextColor: '#FFFFFF',
       inviteExplanationCellBackgroundColor: '#009999',
-      inviteExplanationShareButtonsColor: '#999999',
+      inviteExplanationShareButtonsColor: '#990000',
       inviteExplanationShareButtonsBackgroundColor: '#009999',
 
-      searchBarPlaceholderTextColor: '#ECECEC',
+      searchBarPlaceholderTextColor: '#DDDDDD',
       searchBarSearchTextColor: '#000000',
       searchBarBackgroundColor: '#FFFFFF',
       searchBarTopBorderColor: '#FFFFFF',
 
-      contactNameTextColor: '#FFFC13',
-      contactDetailsTextColor: '#990000',
-      contactSeparatorColor: '#WWWWWW',
-      contactCellBackgroundColor: '#CCCCCC',
-      contactCheckmarkColor: '#FFFC14',
-      contactSectionHeaderTextColor: "#000000",
-      contactSectionHeaderBackgroundColor: "#FFFFFF",
-      contactSectionIndexColor: "#000000",
-      contactSectionIndexBackgroundColor: "#FFFFFF",
+      contactNameTextColor: '#000000',
+      contactDetailsTextColor: '#DDDDDD',
+      contactSeparatorColor: '#000000',
+      contactCellBackgroundColor: '#FFFFFF',
+      contactCheckmarkColor: '#990000',
+      contactSectionHeaderTextColor: '#000000',
+      contactSectionHeaderBackgroundColor: '#FFFFFF',
+      contactSectionIndexColor: '#000000',
+      contactSectionIndexBackgroundColor: '#FFFFFF',
 
-      contactInlineSendButtonTextColor: '#FFFC14',
-      contactInlineSendButtonDisabledTextColor: '#ECECEC',
+      contactInlineSendButtonTextColor: '#990000',
+      contactInlineSendButtonDisabledTextColor: '#DDDDDD',
 
-      messageFieldTextColor: "#FFFC14",
-      messageFieldBackgroundColor: "#FFFFFF",
+      messageFieldTextColor: '#000000',
+      messageFieldBackgroundColor: '#FFFFFF',
 
-      sendButtonCopy: "Send",
-      sendButtonTextColor: "#990000",
+      sendButtonCopy: 'Send',
+      sendButtonTextColor: '#990000',
 
-      bottomViewBorderColor: "#CCCCCC",
-      bottomViewBackgroundColor: "#WWWWWW",
+      bottomViewBorderColor: '#000000',
+      bottomViewBackgroundColor: '#FFFFFF',
 
-      sharePageBackgroundColor: "#990000",
-      sharePageIconColor: "#000000",
-      sharePageIconTextColor: "#FFFFFF",
-      sharePageExplanationTextColor: "#FFFC14"
+      sharePageBackgroundColor: '#009999',
+      sharePageIconColor: '#990000',
+      sharePageIconTextColor: '#990000',
+      sharePageExplanationTextColor: '#FFFFFF'
     };
+
     mave.setDisplayOptions(displayOptions);
 ```
 
