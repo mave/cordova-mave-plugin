@@ -18,20 +18,18 @@ default: build
 pod: clean
 	pod install --no-integrate
 
-build: pod
-	cd Pods && xcodebuild -configuration Release -sdk iphoneos -target $(shell head -n 1 build_target_name.txt)
-	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-ios
-	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator -target $(shell head -n 1 build_target_name.txt)
-	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-sim
-	lipo -create $(shell head -n 1 product_path.txt)-ios $(shell head -n 1 product_path.txt)-sim -output $(shell head -n 1 product_path.txt)
-	rm $(shell head -n 1 product_path.txt)-ios
-	rm $(shell head -n 1 product_path.txt)-sim
+build: pod build-ios build-sim
+	cat product_path.txt | xargs -I product_path lipo -create product_path-ios product_path-sim -output product_path
+	cat product_path.txt | xargs -I product_path rm product_path-ios
+	cat product_path.txt | xargs -I product_path rm product_path-sim
 
 build-ios: pod
-	cd Pods && xcodebuild -configuration Release -target $(shell head -n 1 build_target_name.txt)
+	cd Pods && cat ../build_target_name.txt | xargs -I targetfile xcodebuild -configuration Release -target targetfile
+	cat product_path.txt | xargs -I targetfile mv targetfile targetfile-ios
 
 build-sim: pod
-	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
+	cd Pods && cat ../build_target_name.txt | xargs -I targetfile xcodebuild -configuration Release -sdk iphonesimulator -target targetfile
+	cat product_path.txt | xargs -I targetfile mv targetfile targetfile-sim
 
 clean:
 	-rm -rf /var/folders/*/*/C/com.apple.DeveloperTools/*/Xcode/SharedPrecompiledHeaders/Pods-MaveSDK-*

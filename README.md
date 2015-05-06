@@ -58,15 +58,17 @@ mave.trackSignup(
 );
 ```
 
-## Getting the referring user
-When you get a new app launch, you can get get the data on the user who sent the referral. Just pass in a callback that accepts a userData object. If no referring user is found, an empty object is passed to the callback.
+## Getting the referring data
+When you get a new app launch, you can get get the data on the user who sent the referral, and who the current user is. Just pass in a callback that accepts a referringData object. If no referring data is found, an empty object is passed to the callback.
 ```javascript
-mave.getReferringUser(function (userData) {
-  console.log('User ID: ' + userData.userID);
-  console.log('User first name: ' + userData.firstName);
-  console.log('User last name: ' + userData.lastName);
-  console.log('User email: ' + userData.email);
-  console.log('User phone: ' + userData.phone);
+mave.getReferringData(function (referringData) {
+  console.log('Referring User ID: ' + referringData.referringUserID);
+  console.log('Referring User first name: ' + referringData.referringUserFirstName);
+  console.log('Referring User last name: ' + referringData.referringUserLastName);
+  console.log('Referring User email: ' + referringData.referringUserEmail);
+  console.log('Referring User phone: ' + referringData.referringUserPhone);
+  console.log('Current User phone: ' + referringData.currentUserPhone);
+  var customData = referringData.customData;
 });
 ```
 
@@ -77,32 +79,49 @@ All options are optional and do not need to be specified if you want to use the 
 ```javascript
     var displayOptions = {
       navigationBarTitleCopy: 'Invite Your Friends',
-      navigationBarTitleTextColor: '#CCCCCC', // If a color is specified, it must be in this hex value form
-      navigationBarBackgroundColor: '#WWWWWW',
+      navigationBarTitleTextColor: '#000000', // If a color is specified, it must be in this hex value form
+      navigationBarBackgroundColor: '#DDDDDD',
       navigationBarCancelButtonTitle: 'Cancel',
       navigationBarCancelButtonTintColor: '#999999',
-      inviteExplanationTextColor: '#990000',
+
+      inviteExplanationTextColor: '#FFFFFF',
       inviteExplanationCellBackgroundColor: '#009999',
-      contactNameTextColor: '#FFFC13',
-      contactDetailsTextColor: '#990000',
-      contactSeparatorColor: '#WWWWWW',
-      contactCellBackgroundColor: '#CCCCCC',
-      contactCheckmarkColor: '#FFFC14',
-      contactSectionHeaderTextColor: "#000000",
-      contactSectionHeaderBackgroundColor: "#FFFFFF",
-      contactSectionIndexColor: "#000000",
-      contactSectionIndexBackgroundColor: "#FFFFFF",
-      messageFieldTextColor: "#FFFC14",
-      messageFieldBackgroundColor: "#FFFFFF",
-      sendButtonCopy: "Send",
-      sendButtonTextColor: "#990000",
-      bottomViewBorderColor: "#CCCCCC",
-      bottomViewBackgroundColor: "#WWWWWW",
-      sharePageBackgroundColor: "#990000",
-      sharePageIconColor: "#000000",
-      sharePageIconTextColor: "#FFFFFF",
-      sharePageExplanationTextColor: "#FFFC14"
+      inviteExplanationShareButtonsColor: '#990000',
+      inviteExplanationShareButtonsBackgroundColor: '#009999',
+
+      searchBarPlaceholderTextColor: '#DDDDDD',
+      searchBarSearchTextColor: '#000000',
+      searchBarBackgroundColor: '#FFFFFF',
+      searchBarTopBorderColor: '#FFFFFF',
+
+      contactNameTextColor: '#000000',
+      contactDetailsTextColor: '#DDDDDD',
+      contactSeparatorColor: '#000000',
+      contactCellBackgroundColor: '#FFFFFF',
+      contactCheckmarkColor: '#990000',
+      contactSectionHeaderTextColor: '#000000',
+      contactSectionHeaderBackgroundColor: '#FFFFFF',
+      contactSectionIndexColor: '#000000',
+      contactSectionIndexBackgroundColor: '#FFFFFF',
+
+      contactInlineSendButtonTextColor: '#990000',
+      contactInlineSendButtonDisabledTextColor: '#DDDDDD',
+
+      messageFieldTextColor: '#000000',
+      messageFieldBackgroundColor: '#FFFFFF',
+
+      sendButtonCopy: 'Send',
+      sendButtonTextColor: '#990000',
+
+      bottomViewBorderColor: '#000000',
+      bottomViewBackgroundColor: '#FFFFFF',
+
+      sharePageBackgroundColor: '#009999',
+      sharePageIconColor: '#990000',
+      sharePageIconTextColor: '#990000',
+      sharePageExplanationTextColor: '#FFFFFF'
     };
+
     mave.setDisplayOptions(displayOptions);
 ```
 

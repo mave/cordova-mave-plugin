@@ -48,19 +48,17 @@
 
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command {
     MaveSDK *mave = [MaveSDK sharedInstance];
-    [self.commandDelegate runInBackground:^{
-        [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
-            // Code to present Mave's view controller
-            [self.viewController presentViewController:inviteController animated:YES completion:nil];
-        } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
-            // Code to transition back to your view controller after Mave's is dismissed
-            [controller dismissViewControllerAnimated:YES completion:nil];
-            NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-            [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        } inviteContext:@"default"];
-    }];
+    [mave presentInvitePageModallyWithBlock:^(UIViewController *inviteController) {
+        // Code to present Mave's view controller
+        [self.viewController presentViewController:inviteController animated:YES completion:nil];
+    } dismissBlock:^(UIViewController *controller, NSUInteger numberOfInvitesSent) {
+        // Code to transition back to your view controller after Mave's is dismissed
+        [controller dismissViewControllerAnimated:YES completion:nil];
+        NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+        [returnInfo setObject:[NSNumber numberWithInteger:numberOfInvitesSent] forKey:@"numberOfInvitesSent"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } inviteContext:@"default"];
 }
 
 - (void)trackSignup:(CDVInvokedUrlCommand*)command {
@@ -71,16 +69,21 @@
     }];
 }
 
-- (void)getReferringUser:(CDVInvokedUrlCommand*)command {
+- (void)getReferringData:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
         NSMutableDictionary* returnInfo = [NSMutableDictionary dictionaryWithCapacity:5];
-        [[MaveSDK sharedInstance] getReferringUser:^(MAVEUserData *referringUser) {
-          if (referringUser) {
-            [returnInfo setObject:referringUser.userID forKey:@"userID"];
-            [returnInfo setObject:referringUser.firstName forKey:@"firstName"];
-            [returnInfo setObject:referringUser.lastName forKey:@"lastName"];
-            [returnInfo setObject:referringUser.email forKey:@"email"];
-            [returnInfo setObject:referringUser.phone forKey:@"phone"];
+        [[MaveSDK sharedInstance] getReferringData:^(MAVEReferringData *referringData) {
+          if (referringData) {
+            [returnInfo setObject:referringData.customData forKey:@"customData"];
+            [returnInfo setObject:referringData.currentUser.phone forKey:@"currentUserPhone"];
+            MAVEUserData *referringUser = referringData.referringUser;
+            if (referringUser) {
+              [returnInfo setObject:referringUser.userID forKey:@"referringUserID"];
+              [returnInfo setObject:referringUser.firstName forKey:@"referringUserFirstName"];
+              [returnInfo setObject:referringUser.lastName forKey:@"referringUserLastName"];
+              [returnInfo setObject:referringUser.email forKey:@"referringUserEmail"];
+              [returnInfo setObject:referringUser.phone forKey:@"referringUserPhone"];
+            }
           }
           CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
           [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -123,12 +126,37 @@
 - (void)setInviteExplanationOptions:(CDVInvokedUrlCommand*)command {
     NSString* inviteExplanationTextColor = [command.arguments objectAtIndex:0];
     NSString* inviteExplanationCellBackgroundColor = [command.arguments objectAtIndex:1];
+    NSString* inviteExplanationShareButtonsColor = [command.arguments objectAtIndex:2];
+    NSString* inviteExplanationShareButtonsBackgroundColor = [command.arguments objectAtIndex:3];
 
     MaveSDK *mave = [MaveSDK sharedInstance];
     if ( ![inviteExplanationTextColor isEqual:[NSNull null]] )
         mave.displayOptions.inviteExplanationTextColor = [self UIColorFromHexString:inviteExplanationTextColor];
     if ( ![inviteExplanationCellBackgroundColor isEqual:[NSNull null]] )
         mave.displayOptions.inviteExplanationCellBackgroundColor = [self UIColorFromHexString:inviteExplanationCellBackgroundColor];
+    if ( ![inviteExplanationShareButtonsColor isEqual:[NSNull null]] )
+        mave.displayOptions.inviteExplanationShareButtonsColor = [self UIColorFromHexString:inviteExplanationShareButtonsColor];
+    if ( ![inviteExplanationShareButtonsBackgroundColor isEqual:[NSNull null]] )
+        mave.displayOptions.inviteExplanationShareButtonsBackgroundColor = [self UIColorFromHexString:inviteExplanationShareButtonsBackgroundColor];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)setSearchBarOptions:(CDVInvokedUrlCommand*)command {
+    NSString* searchBarPlaceholderTextColor = [command.arguments objectAtIndex:0];
+    NSString* searchBarSearchTextColor = [command.arguments objectAtIndex:1];
+    NSString* searchBarBackgroundColor = [command.arguments objectAtIndex:2];
+    NSString* searchBarTopBorderColor = [command.arguments objectAtIndex:3];
+
+    MaveSDK *mave = [MaveSDK sharedInstance];
+    if ( ![searchBarPlaceholderTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarPlaceholderTextColor = [self UIColorFromHexString:searchBarPlaceholderTextColor];
+    if ( ![searchBarSearchTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarSearchTextColor = [self UIColorFromHexString:searchBarSearchTextColor];
+    if ( ![searchBarBackgroundColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarBackgroundColor = [self UIColorFromHexString:searchBarBackgroundColor];
+    if ( ![searchBarTopBorderColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarTopBorderColor = [self UIColorFromHexString:searchBarTopBorderColor];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -139,6 +167,8 @@
     NSString* contactSeparatorColor = [command.arguments objectAtIndex:2];
     NSString* contactCellBackgroundColor = [command.arguments objectAtIndex:3];
     NSString* contactCheckmarkColor = [command.arguments objectAtIndex:4];
+    NSString* contactInlineSendButtonTextColor = [command.arguments objectAtIndex:5];
+    NSString* contactInlineSendButtonDisabledTextColor = [command.arguments objectAtIndex:6];
 
     MaveSDK *mave = [MaveSDK sharedInstance];
     if ( ![contactNameTextColor isEqual:[NSNull null]] )
@@ -151,6 +181,10 @@
         mave.displayOptions.contactCellBackgroundColor = [self UIColorFromHexString:contactCellBackgroundColor];
     if ( ![contactCheckmarkColor isEqual:[NSNull null]] )
         mave.displayOptions.contactCheckmarkColor = [self UIColorFromHexString:contactCheckmarkColor];
+    if ( ![contactInlineSendButtonTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.contactInlineSendButtonTextColor = [self UIColorFromHexString:contactInlineSendButtonTextColor];
+    if ( ![contactInlineSendButtonDisabledTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.contactInlineSendButtonDisabledTextColor = [self UIColorFromHexString:contactInlineSendButtonDisabledTextColor];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

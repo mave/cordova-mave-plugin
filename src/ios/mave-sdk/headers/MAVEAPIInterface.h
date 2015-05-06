@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "MAVEHTTPStack.h"
 #import "MAVEUserData.h"
+#import "MAVEMerkleTree.h"
+#import "MAVEPromise.h"
 
 
 extern NSString * const MAVERouteTrackSignup;
@@ -27,8 +29,9 @@ extern NSString * const MAVERouteTrackContactsPermissionPromptView;
 extern NSString * const MAVERouteTrackContactsPermissionGranted;
 extern NSString * const MAVERouteTrackContactsPermissionDenied;
 
-extern NSString * const MAVEAPIParamPrePromptTemplateID;
 extern NSString * const MAVEAPIParamInvitePageType;
+extern NSString * const MAVEAPIParamPrePromptTemplateID;
+extern NSString * const MAVEAPIParamContactsPermissionStatus;
 extern NSString * const MAVEAPIParamContactSelectedFromList;
 extern NSString * const MAVEAPIParamShareMedium;
 extern NSString * const MAVEAPIParamShareToken;
@@ -40,6 +43,9 @@ extern NSString * const MAVEAPIParamShareAudience;
 
 @property (nonatomic, strong) MAVEHTTPStack *httpStack;
 
+- (instancetype)initWithBaseURL:(NSString *)baseURL;
+- (void)setupLoggingOnInit;
+
 // User session info, pulled from MaveSDK singleton
 - (NSString *)applicationID;
 - (NSString *)applicationDeviceID;
@@ -50,6 +56,7 @@ extern NSString * const MAVEAPIParamShareAudience;
 ///
 
 - (void)trackAppOpen;
+- (void)trackAppOpenFetchingReferringDataWithPromise:(MAVEPromise *)promise;
 - (void)trackSignup;
 - (void)trackInvitePageOpenForPageType:(NSString *)invitePageType;
 - (void)trackInvitePageSelectedContactFromList:(NSString *)listType;
@@ -62,36 +69,54 @@ extern NSString * const MAVEAPIParamShareAudience;
 /// Other individual requests
 ///
 - (void)identifyUser;
-- (void)sendInvitesWithPersons:(NSArray *)persons
-                       message:(NSString *)messageText
-                        userId:(NSString *)userId
-      inviteLinkDestinationURL:(NSString *)inviteLinkDestinationURL
-               completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
+- (void)sendInvitesWithRecipientPhoneNumbers:(NSArray *)recipientPhones
+                     recipientContactRecords:(NSArray *)recipientContacts
+                                     message:(NSString *)messageText
+                                      userId:(NSString *)userId
+                    inviteLinkDestinationURL:(NSString *)inviteLinkDestinationURL
+                              wrapInviteLink:(BOOL)wrapInviteLink
+                                  customData:(NSDictionary *)customData
+                             completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
+
+- (void)sendContactsMerkleTree:(MAVEMerkleTree *)merkleTree;
+- (void)sendContactsChangeset:(NSArray *)changeset
+            isFullInitialSync:(BOOL)isFullInitialSync
+            ownMerkleTreeRoot:(NSString *)ownMerkleTreeRoot
+        returnClosestContacts:(BOOL)returnClosestContacts
+              completionBlock:(void (^)(NSArray *closestContacts))closestContactsBlock;
 
 ///
 /// GET requests
 ///
-- (void)getReferringUser:(void (^)(MAVEUserData *userData))referringUserBlock;
+- (void)getReferringData:(MAVEHTTPCompletionBlock)completionBlock;
+- (void)getClosestContactsHashedRecordIDs:(void (^)(NSArray *closestContacts))closestContactsBlock;
 - (void)getRemoteConfigurationWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
 - (void)getNewShareTokenWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
+- (void)getRemoteContactsMerkleTreeRootWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
+- (void)getRemoteContactsFullMerkleTreeWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
 
 ///
 /// Request Sending Helpers
 ///
 // Add current user session info onto the request
 - (void)addCustomUserHeadersToRequest:(NSMutableURLRequest *)request;
+// Helper for adding arbitrary headers
+- (void)addExtraHeaders:(NSDictionary *)extraHeaders toRequest:(NSMutableURLRequest *)request;
 
 // Main request method we use against our API
 - (void)sendIdentifiedJSONRequestWithRoute:(NSString *)relativeURL
                                 methodName:(NSString *)methodName
-                                    params:(NSDictionary *)params
+                                    params:(id)params
+                              extraHeaders:(NSDictionary *)extraHeaders
+                          gzipCompressBody:(BOOL)gzipCompressBody
                            completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
 
 // Send a POST request to the given event url to track the event, ignoring response.
 // If userData is not null, the user id will be included in the request data, plus any
 // additional params passed in.
 - (void)trackGenericUserEventWithRoute:(NSString *)relativeRoute
-                      additionalParams:(NSDictionary *)params;
+                      additionalParams:(NSDictionary *)params
+                       completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
 
 
 
