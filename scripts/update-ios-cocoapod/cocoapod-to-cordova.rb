@@ -1,4 +1,5 @@
 require 'rexml/document'
+require 'set'
 
 # Public CocoapodToCordovaBuilder: Helps to build an Plugman compatible Apache
 # Cordova plugin.
@@ -200,7 +201,7 @@ class CocoapodToCordovaBuilder
       if resource_group
         resource_files = add_files_from_resource_group(resource_group, resource_files)
       end
-      resource_files = resource_files.reject{|f| excluded_files.include?(f.display_name)}
+      resource_files = resource_files.to_set.reject{|f| excluded_files.include?(f.display_name)}
       if copy_files?(options)
         copy_resources = create_new_copy_files_build_phase(@targets[index], File.join(dst_path, options[:sub_dir]))
       end

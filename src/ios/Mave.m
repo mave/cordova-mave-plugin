@@ -137,7 +137,7 @@
     if ( ![inviteExplanationShareButtonsColor isEqual:[NSNull null]] )
         mave.displayOptions.inviteExplanationShareButtonsColor = [self UIColorFromHexString:inviteExplanationShareButtonsColor];
     if ( ![inviteExplanationShareButtonsBackgroundColor isEqual:[NSNull null]] )
-        mave.displayOptions.inviteExplanationShareButtonsBackgroundColor = [self UIBackgroundColorFromHexString:inviteExplanationShareButtonsBackgroundColor];
+        mave.displayOptions.inviteExplanationShareButtonsBackgroundColor = [self UIColorFromHexString:inviteExplanationShareButtonsBackgroundColor];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
