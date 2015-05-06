@@ -89,6 +89,11 @@ All options are optional and do not need to be specified if you want to use the 
       inviteExplanationShareButtonsColor: '#999999',
       inviteExplanationShareButtonsBackgroundColor: '#009999',
 
+      searchBarPlaceholderTextColor: '#ECECEC',
+      searchBarSearchTextColor: '#000000',
+      searchBarBackgroundColor: '#FFFFFF',
+      searchBarTopBorderColor: '#FFFFFF',
+
       contactNameTextColor: '#FFFC13',
       contactDetailsTextColor: '#990000',
       contactSeparatorColor: '#WWWWWW',
@@ -98,6 +103,9 @@ All options are optional and do not need to be specified if you want to use the 
       contactSectionHeaderBackgroundColor: "#FFFFFF",
       contactSectionIndexColor: "#000000",
       contactSectionIndexBackgroundColor: "#FFFFFF",
+
+      contactInlineSendButtonTextColor: '#FFFC14',
+      contactInlineSendButtonDisabledTextColor: '#ECECEC',
 
       messageFieldTextColor: "#FFFC14",
       messageFieldBackgroundColor: "#FFFFFF",

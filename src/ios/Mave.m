@@ -142,12 +142,33 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)setSearchBarOptions:(CDVInvokedUrlCommand*)command {
+    NSString* searchBarPlaceholderTextColor = [command.arguments objectAtIndex:0];
+    NSString* searchBarSearchTextColor = [command.arguments objectAtIndex:1];
+    NSString* searchBarBackgroundColor = [command.arguments objectAtIndex:2];
+    NSString* searchBarTopBorderColor = [command.arguments objectAtIndex:3];
+
+    MaveSDK *mave = [MaveSDK sharedInstance];
+    if ( ![searchBarPlaceholderTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarPlaceholderTextColor = [self UIColorFromHexString:searchBarPlaceholderTextColor];
+    if ( ![searchBarSearchTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarSearchTextColor = [self UIColorFromHexString:searchBarSearchTextColor];
+    if ( ![searchBarBackgroundColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarBackgroundColor = [self UIColorFromHexString:searchBarBackgroundColor];
+    if ( ![searchBarTopBorderColor isEqual:[NSNull null]] )
+        mave.displayOptions.searchBarTopBorderColor = [self UIColorFromHexString:searchBarTopBorderColor];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void)setContactOptions:(CDVInvokedUrlCommand*)command {
     NSString* contactNameTextColor = [command.arguments objectAtIndex:0];
     NSString* contactDetailsTextColor = [command.arguments objectAtIndex:1];
     NSString* contactSeparatorColor = [command.arguments objectAtIndex:2];
     NSString* contactCellBackgroundColor = [command.arguments objectAtIndex:3];
     NSString* contactCheckmarkColor = [command.arguments objectAtIndex:4];
+    NSString* contactInlineSendButtonTextColor = [command.arguments objectAtIndex:5];
+    NSString* contactInlineSendButtonDisabledTextColor = [command.arguments objectAtIndex:6];
 
     MaveSDK *mave = [MaveSDK sharedInstance];
     if ( ![contactNameTextColor isEqual:[NSNull null]] )
@@ -160,6 +181,10 @@
         mave.displayOptions.contactCellBackgroundColor = [self UIColorFromHexString:contactCellBackgroundColor];
     if ( ![contactCheckmarkColor isEqual:[NSNull null]] )
         mave.displayOptions.contactCheckmarkColor = [self UIColorFromHexString:contactCheckmarkColor];
+    if ( ![contactInlineSendButtonTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.contactInlineSendButtonTextColor = [self UIColorFromHexString:contactInlineSendButtonTextColor];
+    if ( ![contactInlineSendButtonDisabledTextColor isEqual:[NSNull null]] )
+        mave.displayOptions.contactInlineSendButtonDisabledTextColor = [self UIColorFromHexString:contactInlineSendButtonDisabledTextColor];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

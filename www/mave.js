@@ -90,19 +90,26 @@ maveExport.setDisplayOptions = function (displayOptions, successCallback, errorC
       cordova.exec(function () {
         cordova.exec(function () {
           cordova.exec(function () {
-            cordova.exec(successCallback, errorCallback, "Mave", "setSharePageOptions", [
-              displayOptions.sharePageBackgroundColor,
-              displayOptions.sharePageIconColor,
-              displayOptions.sharePageIconTextColor,
-              displayOptions.sharePageExplanationTextColor
+            cordova.exec(function () {
+              cordova.exec(successCallback, errorCallback, "Mave", "setSharePageOptions", [
+                displayOptions.sharePageBackgroundColor,
+                displayOptions.sharePageIconColor,
+                displayOptions.sharePageIconTextColor,
+                displayOptions.sharePageExplanationTextColor
+              ]);
+            }, errorCallback, "Mave", "setMessageSectionOptions", [
+              displayOptions.messageFieldTextColor,
+              displayOptions.messageFieldBackgroundColor,
+              displayOptions.sendButtonCopy,
+              displayOptions.sendButtonTextColor,
+              displayOptions.bottomViewBorderColor,
+              displayOptions.bottomViewBackgroundColor
             ]);
-          }, errorCallback, "Mave", "setMessageSectionOptions", [
-            displayOptions.messageFieldTextColor,
-            displayOptions.messageFieldBackgroundColor,
-            displayOptions.sendButtonCopy,
-            displayOptions.sendButtonTextColor,
-            displayOptions.bottomViewBorderColor,
-            displayOptions.bottomViewBackgroundColor
+          }, errorCallback, "Mave", "setSearchBarOptions", [
+            displayOptions.searchBarPlaceholderTextColor,
+            displayOptions.searchBarSearchTextColor,
+            displayOptions.searchBarBackgroundColor,
+            displayOptions.searchBarTopBorderColor
           ]);
         }, errorCallback, "Mave", "setContactSectionOptions", [
           displayOptions.contactSectionHeaderTextColor,
@@ -115,7 +122,9 @@ maveExport.setDisplayOptions = function (displayOptions, successCallback, errorC
         displayOptions.contactDetailsTextColor,
         displayOptions.contactSeparatorColor,
         displayOptions.contactCellBackgroundColor,
-        displayOptions.contactCheckmarkColor
+        displayOptions.contactCheckmarkColor,
+        displayOptions.contactInlineSendButtonTextColor,
+        displayOptions.contactInlineSendButtonDisabledTextColor
       ]);
     }, errorCallback, "Mave", "setInviteExplanationOptions", [
       displayOptions.inviteExplanationTextColor,
