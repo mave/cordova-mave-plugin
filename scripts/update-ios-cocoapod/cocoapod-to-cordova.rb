@@ -184,10 +184,23 @@ class CocoapodToCordovaBuilder
                                      .groups
                                      .find{|g| g.display_name == "Resources"}
       resource_files = []
-      if resource_group
-        resource_files = resource_group.files
-                                       .reject{|f| excluded_files.include?(f.display_name)}
+      def add_files_from_resource_group(resource_group, resource_files)
+        if resource_group.files
+          resource_files += resource_group.files
+        end
+        if resource_group.groups
+          resource_group.groups.each do |group|
+            resource_files += add_files_from_resource_group(group, resource_files)
+          end
+        else
+          resource_files
+        end
+        resource_files
       end
+      if resource_group
+        resource_files = add_files_from_resource_group(resource_group, resource_files)
+      end
+      resource_files = resource_files.reject{|f| excluded_files.include?(f.display_name)}
       if copy_files?(options)
         copy_resources = create_new_copy_files_build_phase(@targets[index], File.join(dst_path, options[:sub_dir]))
       end
