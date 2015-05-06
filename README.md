@@ -127,3 +127,13 @@ All options are optional and do not need to be specified if you want to use the 
 
     mave.setDisplayOptions(displayOptions);
 ```
+
+## Author
+
+© Mave Technologies 2015
+
+info@mave.io
+
+## License
+
+This SDK is released under a proprietary license, to use it in your released application you need to be using the Mave platform (sign up for our beta at [app.mave.io/beta/signup](http://app.mave.io/beta/signup)). See the LICENSE file.
