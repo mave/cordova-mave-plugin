@@ -10,7 +10,7 @@ cordova plugin add io.mave.plugins.mave
 ```
 
 # Using the plugin
-Take a look at the [docs](http://mave.io/betadocs/integrate) for details on how the SDK works. Below you'll find the javascript functions that correspond to the SDK methods in the docs.
+Take a look at the [docs](http://mave.io/docs/integrate) for details on how the SDK works. Below you'll find the javascript functions that correspond to the SDK methods in the docs.
 
 ## Setting up the SDK on launch
 When your app is launched, you should initialize the library like this:
@@ -75,8 +75,28 @@ mave.getReferringData(function (referringData) {
 });
 ```
 
+## Links & Attribution
+See http://mave.io/docs/customization/#links--attribution for more details on customizing the invite link destination.
+You can set the two custom invite link destination variables (`inviteLinkDestinationURL` and `wrapInviteLink`) in two ways.
+
+1) Pass them into `identifyUser` as part of the `userData` object:
+```javascript
+var userData = {
+  userID: '123',
+  firstName: 'John',
+  inviteLinkDestinationURL: 'www.example.com',
+  wrapInviteLink: false // false will turn wrapping off and send the raw inviteLinkDestinationURL in the SMS invite.
+};
+mave.identifyUser(userData);
+```
+
+2) Any time after identifying the user, call `setInviteLinkDestinationURL`:
+```javascript
+mave.setInviteLinkDestinationURL('www.example.com', false); # The second argument is `wrapInviteLink` and will default to true.
+```
+
 ## Configuration
-See http://mave.io/betadocs/customize/ for more details on what can be customized.
+See http://mave.io/docs/customize/ for more details on what can be customized.
 To customize the invite page through this plugin, all you need to do is call `setDisplayOptions` on an object containing the configuration variables you would like to overwrite. This should be called before the invite page is presented.
 All options are optional and do not need to be specified if you want to use the default value. Full example:
 ```javascript
