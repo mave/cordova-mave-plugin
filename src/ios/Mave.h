@@ -8,6 +8,7 @@
 - (void)setupSharedInstanceWithApplicationID:(CDVInvokedUrlCommand*)command;
 - (void)getReferringData:(CDVInvokedUrlCommand*)command;
 - (void)identifyUser:(CDVInvokedUrlCommand*)command;
+- (void)setInviteLinkDestinationURL:(CDVInvokedUrlCommand*)command;
 - (void)identifyAnonymousUser:(CDVInvokedUrlCommand*)command;
 - (void)presentInvitePageModallyWithBlock:(CDVInvokedUrlCommand*)command;
 - (void)trackSignup:(CDVInvokedUrlCommand*)command;

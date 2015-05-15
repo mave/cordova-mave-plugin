@@ -19,7 +19,7 @@
 }
 
 - (void)identifyUser:(CDVInvokedUrlCommand*)command {
-    // Args are [userID, firstName, lastName, email, phone]
+    // Args are [userID, firstName, lastName, email, phone, inviteLinkDestinationURL, wrapInviteLink]
     [self.commandDelegate runInBackground:^{
         NSArray *args = command.arguments;
         NSString* userID = [args objectAtIndex:0];
@@ -27,12 +27,41 @@
         NSString* lastName = [args objectAtIndex:2];
         NSString* email = [args objectAtIndex:3];
         NSString* phone = [args objectAtIndex:4];
+        NSString* inviteLinkDestinationURL = [args objectAtIndex:5];
+        NSString* wrapInviteLink = [args objectAtIndex:6];
         MAVEUserData *userData = [[MAVEUserData alloc] initWithUserID:userID
                                                              firstName:firstName
                                                               lastName:lastName
                                                                  email:email
                                                                  phone:phone];
+        if (inviteLinkDestinationURL) {
+          userData.inviteLinkDestinationURL = inviteLinkDestinationURL;
+        }
+        if ([wrapInviteLink isEqualToString:@"NO"]) {
+          userData.wrapInviteLink = NO;
+        }
         [[MaveSDK sharedInstance] identifyUser:userData];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)setInviteLinkDestinationURL:(CDVInvokedUrlCommand*)command {
+    [self.commandDelegate runInBackground:^{
+        NSArray *args = command.arguments;
+        NSString* inviteLinkDestinationURL = [args objectAtIndex:0];
+        NSString* wrapInviteLink = [args objectAtIndex:1];
+        NSLog(@"inviteLinkDestinationURL");
+        NSLog(inviteLinkDestinationURL);
+        NSLog(@"wrapInviteLink");
+        NSLog(wrapInviteLink);
+
+        if (inviteLinkDestinationURL) {
+          [MaveSDK sharedInstance].userData.inviteLinkDestinationURL = inviteLinkDestinationURL;
+        }
+        if ([wrapInviteLink isEqualToString:@"NO"]) {
+          [MaveSDK sharedInstance].userData.wrapInviteLink = NO;
+        }
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];

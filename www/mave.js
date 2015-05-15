@@ -26,13 +26,27 @@ maveExport.identifyUser = function (userData, successCallback, errorCallback) {
   var lastName = userData.lastName;
   var email = userData.email;
   var phone = userData.phone;
+  var inviteLinkDestinationURL = userData.inviteLinkDestinationURL;
+  var wrapInviteLink = userData.wrapInviteLink === false ? 'NO' : 'YES';
   if ( userID === undefined ) {
     errorCallback('userID is required');
   } else if ( firstName === undefined ) {
     errorCallback('firstName is required');
   } else {
-    cordova.exec(successCallback, errorCallback, "Mave", "identifyUser", [userID, firstName, lastName, email, phone]);
+    cordova.exec(successCallback, errorCallback, "Mave", "identifyUser",
+                 [userID, firstName, lastName, email, phone, inviteLinkDestinationURL, wrapInviteLink]);
   }
+};
+
+maveExport.setInviteLinkDestinationURL = function (inviteLinkDestinationURL, wrapInviteLink) {
+  var successCallback = function () {
+      console.log('setInviteLinkDestinationURL success');
+  };
+  var errorCallback = function (errorMessage) {
+      console.log('setInviteLinkDestinationURL error: ' + errorMessage);
+  };
+  wrapInviteLink = wrapInviteLink === false ? 'NO' : 'YES';
+  cordova.exec(successCallback, errorCallback, "Mave", "setInviteLinkDestinationURL", [inviteLinkDestinationURL, wrapInviteLink]);
 };
 
 maveExport.getReferringData = function (successCallback, errorCallback) {
