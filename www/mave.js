@@ -38,6 +38,17 @@ maveExport.identifyUser = function (userData, successCallback, errorCallback) {
   }
 };
 
+maveExport.setInviteLinkDestinationURL = function (inviteLinkDestinationURL, wrapInviteLink) {
+  var successCallback = function () {
+      console.log('setInviteLinkDestinationURL success');
+  };
+  var errorCallback = function (errorMessage) {
+      console.log('setInviteLinkDestinationURL error: ' + errorMessage);
+  };
+  wrapInviteLink = wrapInviteLink === false ? 'NO' : 'YES';
+  cordova.exec(successCallback, errorCallback, "Mave", "setInviteLinkDestinationURL", [inviteLinkDestinationURL, wrapInviteLink]);
+};
+
 maveExport.getReferringData = function (successCallback, errorCallback) {
   successCallback = successCallback || function () {
       console.log('getReferringData success');

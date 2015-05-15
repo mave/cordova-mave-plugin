@@ -19,7 +19,7 @@
 }
 
 - (void)identifyUser:(CDVInvokedUrlCommand*)command {
-    // Args are [userID, firstName, lastName, email, phone, inviteLinkDestinationURL?]
+    // Args are [userID, firstName, lastName, email, phone, inviteLinkDestinationURL, wrapInviteLink]
     [self.commandDelegate runInBackground:^{
         NSArray *args = command.arguments;
         NSString* userID = [args objectAtIndex:0];
@@ -41,6 +41,27 @@
           userData.wrapInviteLink = NO;
         }
         [[MaveSDK sharedInstance] identifyUser:userData];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)setInviteLinkDestinationURL:(CDVInvokedUrlCommand*)command {
+    [self.commandDelegate runInBackground:^{
+        NSArray *args = command.arguments;
+        NSString* inviteLinkDestinationURL = [args objectAtIndex:0];
+        NSString* wrapInviteLink = [args objectAtIndex:1];
+        NSLog(@"inviteLinkDestinationURL");
+        NSLog(inviteLinkDestinationURL);
+        NSLog(@"wrapInviteLink");
+        NSLog(wrapInviteLink);
+
+        if (inviteLinkDestinationURL) {
+          [MaveSDK sharedInstance].userData.inviteLinkDestinationURL = inviteLinkDestinationURL;
+        }
+        if ([wrapInviteLink isEqualToString:@"NO"]) {
+          [MaveSDK sharedInstance].userData.wrapInviteLink = NO;
+        }
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
