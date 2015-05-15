@@ -96,7 +96,7 @@ mave.setInviteLinkDestinationURL('www.example.com', false); # The second argumen
 ```
 
 ## Configuration
-See http://mave.io/docs/customize/ for more details on what can be customized.
+See http://mave.io/docs/customization/ for more details on what can be customized.
 To customize the invite page through this plugin, all you need to do is call `setDisplayOptions` on an object containing the configuration variables you would like to overwrite. This should be called before the invite page is presented.
 All options are optional and do not need to be specified if you want to use the default value. Full example:
 ```javascript
