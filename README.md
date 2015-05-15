@@ -92,7 +92,7 @@ mave.identifyUser(userData);
 
 2) Any time after identifying the user, call `setInviteLinkDestinationURL`:
 ```javascript
-mave.setInviteLinkDestinationURL('www.example.com', false); # The second argument is `wrapInviteLink` and will default to true.
+mave.setInviteLinkDestinationURL('www.example.com', false); // The second argument is `wrapInviteLink` and will default to true.
 ```
 
 ## Configuration
