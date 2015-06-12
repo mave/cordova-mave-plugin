@@ -18,6 +18,12 @@
 + (UIColor *)colorWhite;
 + (UIColor *)colorBlueTint;
 
++ (UIColor *)colorAppleBlueTint;
++ (UIColor *)colorAppleLightGray;
++ (UIColor *)colorAppleMediumGray;
++ (UIColor *)colorAppleDarkGray;
++ (UIColor *)colorAppleBlack;
+
 // Shared options
 // Contacts list invite friends page options:
 // Header options (also used by share page invite page)
@@ -92,6 +98,15 @@
 @property (nonatomic, strong) UIColor *sendButtonTextColor;
 @property (nonatomic, strong) UIColor *bottomViewBackgroundColor;
 @property (nonatomic, strong) UIColor *bottomViewBorderColor;
+
+///
+/// Invite page V3
+///
+@property (nonatomic, strong) UIColor *invitePageV3TintColor;
++ (UIFont *)invitePageV3BiggerFont;
++ (UIFont *)invitePageV3BiggerLightFont;
++ (UIFont *)invitePageV3SmallerFont;
++ (UIFont *)invitePageV3SmallerLightFont;
 
 ///
 /// Share page invite page
