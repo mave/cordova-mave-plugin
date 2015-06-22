@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?> 
-<plugin id='io.mave.plugins.mave' version='0.7.0' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
+<plugin id='io.mave.plugins.mave' version='0.7.1' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
   <name>
      mave 
   </name>
@@ -73,6 +73,12 @@
     <header-file src='src/ios/mave-sdk/headers/MAVEABSyncManager.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEAPIInterface.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEHTTPStack.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVEInviteFriendsReusableOvalButton.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInviteReusableCellDelegate.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInviteReusableCellDismissButton.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInviteReusableCellInviteButton.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInviteReusableInviteFriendsButtonTableViewCell.h' autogen='true'/>
+    <header-file src='src/ios/mave-sdk/headers/MAVESuggestedInviteReusableTableViewCell.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEABUtils.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEBuiltinUIElementUtils.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/MAVEClientPropertyUtils.h' autogen='true'/>
@@ -132,9 +138,21 @@
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane@3x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAirplaneSmall.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAirplaneSmall@2x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAirplaneSmall@3x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVECancelX.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVECancelX@2x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVECancelX@3x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope@3x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon@2x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon@3x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIconSmall.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIconSmall@2x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIconSmall@3x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@1x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEShareIconClipboard@3x.png' autogen='true'/>

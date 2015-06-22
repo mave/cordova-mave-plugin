@@ -12,6 +12,7 @@
 #import "MAVEUserData.h"
 #import "MAVEReferringData.h"
 #import "MAVEInvitePageChooser.h"
+#import "MAVERemoteConfigurationInvitePageChoice.h"
 #import "MAVEAPIInterface.h"
 #import "MAVERemoteObjectBuilder.h"
 #import "MAVECustomSharePageViewController.h"
@@ -29,23 +30,33 @@
 @property (nonatomic, strong) MAVERemoteObjectBuilder *suggestedInvitesBuilder;
 @property (nonatomic, strong) MAVERemoteObjectBuilder *referringDataBuilder;
 
-
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *appDeviceID;
 @property (nonatomic, assign) BOOL isInitialAppLaunch;
 @property (nonatomic, copy) NSString *inviteContext;
 @property (nonatomic, strong) MAVEUserData *userData;
 
+// Debug / testing properties
+@property (nonatomic, assign) BOOL debug;
+@property (nonatomic, assign) MAVEInvitePageType debugInvitePageType;
+@property (nonatomic, strong) MAVEReferringData *debugFakeReferringData;
++ (MAVEReferringData *)generateFakeReferringDataForTestingWithCustomData:(NSDictionary *)customData;
+@property (nonatomic, assign) NSUInteger debugNumberOfRandomSuggestedInvites;
+@property (nonatomic, assign) CGFloat debugSuggestedInvitesDelaySeconds;
+
+
 + (void)setupSharedInstanceWithApplicationID:(NSString *)applicationID;
 + (instancetype)sharedInstance;
+
+// Methods intended for external use, to access referring data & suggested invites
+- (void)getReferringData:(void(^)(MAVEReferringData *referringData))referringDataHandler;
+- (void)getSuggestedInvites:(void(^)(NSArray *suggestedInvites))suggestedInvitesHandler timeout:(CGFloat)timeout;
 
 // Internal, method to access the remote configuration
 - (MAVERemoteConfiguration *)remoteConfiguration;
 - (NSArray *)suggestedInvitesWithFullContactsList:(NSArray *)contacts delay:(CGFloat)seconds;
 
 - (BOOL)isSetupOK;
-
-- (void)getReferringData:(void(^)(MAVEReferringData *referringData))referringDataHandler;
 
 // Use this to identify your logged-in users to us
 - (void)identifyUser:(MAVEUserData *)userData;
