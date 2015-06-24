@@ -1,34 +1,22 @@
 {
-  "name": "cordova-mave-plugin",
-  "version": "0.7.0",
-  "description": "A plugin for the Mave Growth SDK",
-  "cordova": {
-    "id": "io.mave.plugins.mave",
+    "version": "0.7.1",
+    "name": "io.mave.plugins.mave",
+    "cordova_name": "\n     mave \n  ",
+    "description": "\n     A plugin for the Mave Growth SDK \n  ",
+    "license": "\n     See LICENSE file \n  ",
+    "keywords": [
+        "cordova",
+        "plugins",
+        "mave",
+        "growth",
+        "invite",
+        "invites",
+        "referral",
+        "deep links",
+        "tracking"
+    ],
     "platforms": [
-      "ios"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mave/cordova-mave-plugin.git"
-  },
-  "keywords": [
-    "cordova",
-    "plugins",
-    "mave",
-    "growth",
-    "invite",
-    "invites",
-    "referral",
-    "deep links",
-    "tracking",
-    "ecosystem:cordova",
-    "cordova-ios"
-  ],
-  "author": "Mave Technologies, Inc.",
-  "license": "See LICENSE file: https://github.com/mave/cordova-mave-plugin/blob/master/LICENSE",
-  "bugs": {
-    "url": "https://github.com/mave/cordova-mave-plugin/issues"
-  },
-  "homepage": "https://github.com/mave/cordova-mave-plugin#readme"
+        "ios"
+    ],
+    "engines": []
 }
