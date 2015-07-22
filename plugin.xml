@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?> 
-<plugin id='io.mave.plugins.mave' version='0.7.2' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
+<plugin id='io.mave.plugins.mave' version='0.7.7' xmlns='http://apache.org/cordova/ns/plugins/1.0' xmlns:android='http://schemas.android.com/apk/res/android'>
   <name>
      mave 
   </name>
@@ -135,6 +135,9 @@
     <header-file src='src/ios/mave-sdk/headers/NBMetadataCoreTestMapper.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/NSArray+NBAdditions.h' autogen='true'/>
     <header-file src='src/ios/mave-sdk/headers/CCTemplate.h' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAddressBook.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAddressBook@2x.png' autogen='true'/>
+    <resource-file src='src/ios/mave-sdk/resources/MAVEAddressBook@3x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEAirplane@3x.png' autogen='true'/>
@@ -144,9 +147,6 @@
     <resource-file src='src/ios/mave-sdk/resources/MAVECancelX.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVECancelX@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVECancelX@3x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope@2x.png' autogen='true'/>
-    <resource-file src='src/ios/mave-sdk/resources/MAVEEnvelope@3x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon@2x.png' autogen='true'/>
     <resource-file src='src/ios/mave-sdk/resources/MAVEInviteIcon@3x.png' autogen='true'/>
