@@ -32,7 +32,7 @@ extern NSString * const MAVESharePageShareTypeClipboard;
 // Methods to compose and share, they return UIViewControllers that need to be presented to display the compose views
 //
 + (MFMessageComposeViewController *)composeClientSMSInviteToRecipientPhones:(NSArray *)recipientPhones completionBlock:(void(^)(MFMessageComposeViewController *controller, MessageComposeResult composeResult))completionBlock;
-+ (MFMailComposeViewController *)composeClientEmailWithCompletionBlock:(void(^)(MFMailComposeViewController *controller, MFMailComposeResult result))completionBlock;
++ (MFMailComposeViewController *)composeClientEmailInviteToRecipientEmails:(NSArray *)recipients withCompletionBlock:(void (^)(MFMailComposeViewController *, MFMailComposeResult))completionBlock;
 + (SLComposeViewController *)composeFacebookNativeShareWithCompletionBlock:(void(^)(SLComposeViewController *controller, SLComposeViewControllerResult result)) completionBlock;
 + (SLComposeViewController *)composeTwitterNativeShareWithCompletionBlock:(void(^)(SLComposeViewController *controller, SLComposeViewControllerResult result)) completionBlock;
 + (void)composePasteboardShare;
@@ -48,8 +48,12 @@ extern NSString * const MAVESharePageShareTypeClipboard;
 + (NSString *)shareToken;
 + (NSString *)shareCopyFromCopy:(NSString *)shareCopy
       andLinkWithSubRouteLetter:(NSString *)letter;
-// Build a link of the format: http://appjoin.us/<subRoute>/SHARE-TOKEN
+
+// If using Mave links, build a link of the format: <base url><subRoute>/SHARE-TOKEN
+// Otherwise, just return the 3rd party link
 + (NSString *)shareLinkWithSubRouteLetter:(NSString *)subRoute;
++ (NSString *)shareLinkBaseURL;
++ (void)setupShareToken;
 + (void)resetShareToken;
 
 @end

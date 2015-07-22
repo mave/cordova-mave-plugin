@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "MAVEHTTPStack.h"
 #import "MAVEUserData.h"
+#import "MAVEContactIdentifierBase.h"
 #import "MAVEMerkleTree.h"
 #import "MAVEPromise.h"
 
@@ -88,6 +89,14 @@ extern NSString * const MAVEAPIParamShareAudience;
                  wrapInviteLink:(BOOL)wrapInviteLink
                      customData:(NSDictionary *)customData
                 completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
+- (void)sendInviteToAnonymousContactIdentifier:(MAVEContactIdentifierBase *)contactIdentifier
+                                       smsCopy:(NSString *)smsCopy
+                                  senderUserID:(NSString *)senderUserID
+                      inviteLinkDestinationURL:(NSString *)inviteLinkDestinationURL
+                                wrapInviteLink:(BOOL)wrapInviteLink
+                                    customData:(NSDictionary *)customData
+                               completionBlock:(MAVEHTTPCompletionBlock)completionBlock;
+
 
 - (void)sendContactsMerkleTree:(MAVEMerkleTree *)merkleTree;
 - (void)sendContactsChangeset:(NSArray *)changeset
@@ -103,7 +112,7 @@ extern NSString * const MAVEAPIParamShareAudience;
 - (void)getReferringData:(MAVEHTTPCompletionBlock)completionBlock;
 - (void)getClosestContactsHashedRecordIDs:(void (^)(NSArray *closestContacts))closestContactsBlock;
 - (void)getRemoteConfigurationWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
-- (void)getNewShareTokenWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
+- (void)newShareTokenWithDetails:(NSDictionary *)details completionBlock:(MAVEHTTPCompletionBlock)block;
 - (void)getRemoteContactsMerkleTreeRootWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
 - (void)getRemoteContactsFullMerkleTreeWithCompletionBlock:(MAVEHTTPCompletionBlock)block;
 
